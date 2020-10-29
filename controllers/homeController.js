@@ -23,6 +23,21 @@ homeController.index = async function (req, res) {
     res.render('index');
 }
 
+/**
+ * This function handles post requests from the client.
+ * 
+ * @param {*} req req.body.value will contain the value of the button clicked
+ * @param {*} res 
+ */
+homeController.handleButtonClicked = async function (req, res) {
+    console.log(req.body.value) // Here we have the value sent to us from the client
+    let valOfButtonClicked = req.body.value
+    // This function will be called when a user clicks the button
+    // valOfButtonClicked contains the value of the button clicked
+
+    // Now you should whatever you like with the value in this function such as gather tables from database or whatever...
+}
+
 
 // Exports.
 module.exports = homeController

@@ -1,9 +1,9 @@
 console.log('Client-side code running');
 
-const button = document.getElementById('dropdownMenuButton');
-button.addEventListener('click', function(e) {
-  console.log('button was clicked');
-});
-
-const seasonId = document.getElementById('seasonId').value;
-console.log(seasonId.value)
+// With JQuery, gather all dropdown-items, take their value and crate POST ajax request.
+$('button.dropdown-item').click(function() {
+  let value = $(this).val()
+  $.post('/', { value: value }, () => {
+    console.log('POST request with data: ' + value + ' was sucessfully sent.')
+  })
+})
