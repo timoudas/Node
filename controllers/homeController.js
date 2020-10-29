@@ -46,6 +46,5 @@ homeController.handleButtonClicked = async function (req, res) {
     // Now you should whatever you like with the value in this function such as gather tables from database or whatever...
 }
 
-//Comment
 // Exports.
 module.exports = homeController
