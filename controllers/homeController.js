@@ -20,7 +20,7 @@ homeController.index = async function (req, res) {
     }
     res.locals.result = table
     res.locals.seasons = seasons
-    res.render('index');
+    res.render('home/index');
 }
 
 /**
@@ -31,15 +31,17 @@ homeController.index = async function (req, res) {
  */
 homeController.handleButtonClicked = async function (req, res) {
     let valOfButtonClicked = req.body.value
+    console.log(valOfButtonClicked)
     try{
         var tableUpdate = await LeagueStanding.getTable(valOfButtonClicked)
         var seasons = await LeagueStanding.filterTableSeason()
     }catch(err){
         console.log(err)
     }
+    console.log(tableUpdate)
     res.locals.result = tableUpdate
     res.locals.seasons = seasons
-    res.render('index');
+    res.render('home/index');
     // This function will be called when a user clicks the button
     // valOfButtonClicked contains the value of the button clicked
 
