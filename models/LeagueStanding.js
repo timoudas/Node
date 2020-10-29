@@ -28,7 +28,11 @@ var TeamSquadsModel = mongoose.model('team_squads', TeamSquadsSchema);
 var PlayerFixtureStatsModel = mongoose.model('fixture_player_stats', PlayerFixtureStatsSchema);
 
 async function getTable(seasonId){
-    var seasonId = 363
+    if(seasonId == null){
+        var seasonId = 363
+    }else{
+        seasonId = parseInt(seasonId)
+    }
     var data = await LeagueStandingsModel.aggregate()
     .match({
         'seasonId': seasonId

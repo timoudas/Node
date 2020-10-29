@@ -30,8 +30,16 @@ homeController.index = async function (req, res) {
  * @param {*} res 
  */
 homeController.handleButtonClicked = async function (req, res) {
-    console.log(req.body.value) // Here we have the value sent to us from the client
     let valOfButtonClicked = req.body.value
+    try{
+        var tableUpdate = await LeagueStanding.getTable(valOfButtonClicked)
+        var seasons = await LeagueStanding.filterTableSeason()
+    }catch(err){
+        console.log(err)
+    }
+    res.locals.result = tableUpdate
+    res.locals.seasons = seasons
+    res.render('index');
     // This function will be called when a user clicks the button
     // valOfButtonClicked contains the value of the button clicked
 
