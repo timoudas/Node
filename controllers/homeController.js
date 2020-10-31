@@ -10,12 +10,11 @@ var seasonId = async () => {
 }
 
 /**
- * Displays a start page and snippets made by users.
+ * Displays a start page.
  *
  * @param {object} req - Express request object.
  * @param {object} res - Express response object.
  */
-
 homeController.index = async function (req, res) {
     console.log(seasonId)
     try{

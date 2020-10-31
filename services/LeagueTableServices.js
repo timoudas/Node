@@ -6,6 +6,10 @@ module.exports = {
     filterTableSeason,
 }
 
+/** 
+ * Gets league table from db
+ * @param {string} SeasonId - Id for specific season
+*/
 async function getTable(seasonId) {
     if (seasonId == null) {
         var seasonId = 363;
@@ -35,7 +39,9 @@ async function getTable(seasonId) {
     return data;
 }
 
-
+/**
+ * Gets latest season from db
+ */
 async function latestSeasonId() {
     var data = await LeagueStandingsModel.aggregate()
         .group({
@@ -57,6 +63,9 @@ async function latestSeasonId() {
     return seasonId;
 }
 
+/**
+ * Gets all seasonsIds and seasonLabels from db
+ */
 async function filterTableSeason() {
     var data = await LeagueStandingsModel.aggregate()
         .group({
