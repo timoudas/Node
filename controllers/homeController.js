@@ -2,8 +2,12 @@
 
 const homeController = {}
 const { registerDecorator } = require('handlebars')
+const { Collection } = require('mongoose')
 const LeagueStanding = require('../models/LeagueStanding')
 const db = require('../_helpers/db')
+var seasonId = async () => {
+    return await LeagueStanding.latestSeasonId()   
+}
 
 /**
  * Displays a start page and snippets made by users.
@@ -11,9 +15,11 @@ const db = require('../_helpers/db')
  * @param {object} req - Express request object.
  * @param {object} res - Express response object.
  */
+
 homeController.index = async function (req, res) {
+    console.log(seasonId)
     try{
-        var table = await LeagueStanding.getTable()
+        var table = await LeagueStanding.getTable(seasonId)
         var seasons = await LeagueStanding.filterTableSeason()
     }catch(err){
         console.log(err)
@@ -30,22 +36,9 @@ homeController.index = async function (req, res) {
  * @param {*} res 
  */
 homeController.handleButtonClicked = async function (req, res) {
-    let valOfButtonClicked = req.body.value
-    console.log(valOfButtonClicked)
-    try{
-        var tableUpdate = await LeagueStanding.getTable(valOfButtonClicked)
-        var seasons = await LeagueStanding.filterTableSeason()
-    }catch(err){
-        console.log(err)
-    }
-    console.log(tableUpdate)
-    res.locals.result = tableUpdate
-    res.locals.seasons = seasons
-    res.render('home/index');
-    // This function will be called when a user clicks the button
-    // valOfButtonClicked contains the value of the button clicked
+    seasonId = req.body.value
+    res.end();
 
-    // Now you should whatever you like with the value in this function such as gather tables from database or whatever...
 }
 
 // Exports.

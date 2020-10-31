@@ -27,6 +27,27 @@ var TeamStandingsModel = mongoose.model('team_standings', TeamStandingsSchema);
 var TeamSquadsModel = mongoose.model('team_squads', TeamSquadsSchema);
 var PlayerFixtureStatsModel = mongoose.model('fixture_player_stats', PlayerFixtureStatsSchema);
 
+async function latestSeasonId(){
+    var data = await LeagueStandingsModel.aggregate()
+    .group({
+        '_id': '$seasonId', 'SeasonLabel': {'$first': '$seasonLabel'}
+    })
+    .project({
+        'season':{
+           '$substr' : ['$SeasonLabel', 0, 4]
+            },
+    })
+    .sort({
+        'season': -1
+    })
+    .project({
+        'season': 0
+    })
+    .limit(1)
+    var seasonId = data[0]['_id']
+    return seasonId
+}
+
 async function getTable(seasonId){
     if(seasonId == null){
         var seasonId = 363
@@ -49,6 +70,9 @@ async function getTable(seasonId){
             'overall_goalsDifference': 1,
             'overall_points': 1,
             '_id': 0,
+    })
+    .sort({
+        'position': 1
     })
     return data
 }
@@ -84,4 +108,5 @@ module.exports={
     PlayerFixtureStatsModel,
     getTable,
     filterTableSeason,
+    latestSeasonId
 }
