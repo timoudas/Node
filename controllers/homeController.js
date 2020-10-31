@@ -5,6 +5,7 @@ const { registerDecorator } = require('handlebars')
 const { Collection } = require('mongoose')
 const LeagueStandingServices = require('../services/LeagueTableServices')
 const db = require('../_helpers/db')
+let homeAwayValue = 1
 var seasonId = async () => {
     return await LeagueStanding.latestSeasonId()   
 }
@@ -35,8 +36,10 @@ homeController.index = async function (req, res) {
  * @param {*} res 
  */
 homeController.handleButtonClicked = async function (req, res) {
-    seasonId = req.body.value
+    seasonId = req.body.seasonValue
+    homeAwayValue = req.body.homeAwayValue
     res.end();
+
 
 }
 

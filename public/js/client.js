@@ -1,10 +1,25 @@
 console.log('Client-side code running');
+$(function(){
 
-// With JQuery, gather all dropdown-items, take their value and crate POST ajax request.
-$('.dropdown-item').click(function() {
-  let value = $(this).val()
-  $.post('/table', { value: value }, () => {
-    console.log('POST request with data: ' + value + ' was sucessfully sent.')
-    location.reload();
-  })
+    $('#season-toggle').bind('click', function(event) {
+        let value = event.target.value
+        $('#season-toggle').bind('click', function(event) {
+            let text = event.target.textContent
+            $('#seasonDropDownMenyButton').html(text);
+        });
+        $.post('/table', { seasonValue: value }, () => {
+            console.log('POST request with data: ' + value + ' was sucessfully sent.')
+            location.reload();
+        
+
+        });
+    });
+});
+
+$('#homeAwayToggle').bind('click', function(event) {
+    let value = event.target.value
+    $.post('/table', { homeAwayValue: value }, () => {
+      console.log('POST request with data: ' + value + ' was sucessfully sent.')
+      location.reload();
+    });
 })
