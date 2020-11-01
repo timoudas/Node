@@ -20,7 +20,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use('/', require('./routes/homeRouter'))
-app.use('/table', require('./routes/tableRouter'))
+app.use('/', require('./routes/tableRouter'))
 
 
 app.use('*', (req, res, next) => {

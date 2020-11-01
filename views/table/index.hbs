@@ -26,11 +26,16 @@
         </div>
     </div>
     <table class="table table-dark">
-        {{> leagueTableHeader}}
-        <tbody>
-            {{#each result}}
-                {{> leagueTableBody this}}
-            {{/each}}
+        <thead>
+            {{> leagueTableHeader}}
+        </thead>
+        <tbody id='league-table-rows'>
+            <script id="season-html" type="text/x-ftt-template">
+                {{season}}
+                {{#each result}}
+                    {{> leagueTableBody this}}
+                {{/each}}
+            </script>
         </tbody>
     </table>
 </div>

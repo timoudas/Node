@@ -7,7 +7,7 @@ const homeController = require('../controllers/homeController')
 
 // GET /
 router.get('/', homeController.index)
-router.post('/:id', homeController.handleButtonClicked) // To be able to catch POST request we need a route that handles POST requests
+
 
 // Exports.
 module.exports = router

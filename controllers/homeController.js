@@ -17,31 +17,7 @@ var seasonId = async () => {
  * @param {object} res - Express response object.
  */
 homeController.index = async function (req, res) {
-    console.log(seasonId)
-    try{
-        var table = await LeagueStandingServices.getTable(seasonId)
-        var seasons = await LeagueStandingServices.filterTableSeason()
-    }catch(err){
-        console.log(err)
-    }
-    res.locals.result = table
-    res.locals.seasons = seasons
-    res.render('home/index');
+    res.render('home/home');
 }
 
-/**
- * This function handles post requests from the client.
- * 
- * @param {*} req req.body.value will contain the value of the button clicked
- * @param {*} res 
- */
-homeController.handleButtonClicked = async function (req, res) {
-    seasonId = req.body.seasonValue
-    homeAwayValue = req.body.homeAwayValue
-    res.end();
-
-
-}
-
-// Exports.
 module.exports = homeController
