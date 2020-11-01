@@ -24,7 +24,7 @@ $('#season-toggle').bind('click', function(event) {
     //Post request to update league table
     $.ajax({
         type: 'POST',
-        url: '/table/:id',
+        url: '/table?' + $.param({ seasonValue: value}),
         data: jQuery.param({seasonValue: value}),
         success: function (result) {
             console.log(result)

@@ -10,7 +10,7 @@ var seasonId = async () => {
     return await LeagueStanding.latestSeasonId()   
 }
 // Exports.
-module.exports = tableController
+module.exports ={ tableController, middleware}
 
 /**
  * Displays a start page.
@@ -36,7 +36,10 @@ tableController.index = async function (req, res) {
  * @param {*} req req.body.value will contain the value of the button clicked
  * @param {*} res 
  */
+
 tableController.handleSeasonFilter = async function (req, res) {
+    console.log(req.query)
+    console.log(req.body)
     if(req.body.seasonValue){
         console.log(req.body.seasonValue)
         var table = await LeagueStandingServices.getTable()
@@ -46,7 +49,7 @@ tableController.handleSeasonFilter = async function (req, res) {
 }
 
 tableController.handleHomeAwayFilter = async function (req, res) {
-    console.log(req.body)
+
     seasonId = req.body.seasonValue
     homeAwayValue = req.body.homeAwayValue
     // res.end();
