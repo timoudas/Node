@@ -28,7 +28,7 @@ $('#season-toggle').bind('click', function(event) {
         data: jQuery.param({seasonValue: value}),
         success: function (result) {
             console.log(result)
-            var source   = $('#season-html').html();
+            var source   = $('#league-table-rows').html();
             var template = Handlebars.compile(source);
             var html = template(result);
             $('#league-table-rows').html(html);
