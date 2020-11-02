@@ -1,36 +1,33 @@
 const { LeagueStandingsModel } = require("../models/LeagueStanding");
 
-module.exports = {
-    getTable,
-    latestSeasonId,
-    filterTableSeason,
-}
 
 /** 
  * Gets league table from db
  * @param {string} SeasonId - Id for specific season
 */
-async function getTable(seasonId) {
-    if (seasonId == null) {
-        var seasonId = 363;
-    } else {
+async function getTable(seasonId, tableType="overall") {
+
         seasonId = parseInt(seasonId);
-    }
+        var tableType = tableType
+
     var data = await LeagueStandingsModel.aggregate()
         .match({
             'seasonId': seasonId
         })
+        .unwind(
+            `$${tableType}`
+        )
         .project({
             'position': 1,
             'team_shortName': 1,
-            'overall_played': 1,
-            'overall_won': 1,
-            'overall_draw': 1,
-            'overall_lost': 1,
-            'overall_goalsFor': 1,
-            'overall_goalsAgainst': 1,
-            'overall_goalsDifference': 1,
-            'overall_points': 1,
+            'played': `$${tableType}.played`,
+            'won': `$${tableType}.won`,
+            'drawn': `$${tableType}.drawn`,
+            'lost': `$${tableType}.lost`,
+            'goalsFor': `$${tableType}.goalsFor`,
+            'goalsAgainst': `$${tableType}.goalsAgainst`,
+            'goalsDifference': `$${tableType}.goalsDifference`,
+            'points': `$${tableType}.points`,
             '_id': 0,
         })
         .sort({
@@ -75,4 +72,10 @@ async function filterTableSeason() {
             '_id': -1
         });
     return data;
+}
+
+module.exports = {
+    getTable,
+    latestSeasonId,
+    filterTableSeason,
 }

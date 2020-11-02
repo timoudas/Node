@@ -37,14 +37,14 @@ $('#season-toggle').bind('click', function(event) {
                 let newHtml = `<tr>
                 <td>${filteredTr.position}</td>
                 <td>${filteredTr.team_shortName}</td>
-                <td>${filteredTr.overall_played}</td>
-                <td>${filteredTr.overall_won}</td>
-                <td>${filteredTr.overall_draw}</td>
-                <td>${filteredTr.overall_lost}</td>
-                <td>${filteredTr.overall_goalsFor}</td>
-                <td>${filteredTr.overall_goalsAgainst}</td>
-                <td>${filteredTr.overall_goalsDifference}</td>
-                <td>${filteredTr.overall_points}</td>
+                <td>${filteredTr.played}</td>
+                <td>${filteredTr.won}</td>
+                <td>${filteredTr.drawn}</td>
+                <td>${filteredTr.lost}</td>
+                <td>${filteredTr.goalsFor}</td>
+                <td>${filteredTr.goalsAgainst}</td>
+                <td>${filteredTr.goalsDifference}</td>
+                <td>${filteredTr.points}</td>
                 </tr>`
 
                 $('#league-table-rows').append(newHtml)

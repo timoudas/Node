@@ -3,14 +3,13 @@
 const tableController = {}
 const { registerDecorator } = require('handlebars')
 const { Collection } = require('mongoose')
-const LeagueStandingServices = require('../services/LeagueTableServices')
+const LeagueStandingServices = require('../services/LeagueTableServices.js')
 let homeAwayValue = 1
 
 var seasonId = async () => {
-    return await LeagueStanding.latestSeasonId()   
+    const result = await LeagueStandingServices.latestSeasonId()   
+    return result
 }
-// Exports.
-// module.exports ={ tableController, middleware}
 
 /**
  * Displays a start page.
@@ -20,7 +19,7 @@ var seasonId = async () => {
  */
 tableController.index = async function (req, res) {
     try{
-        var table = await LeagueStandingServices.getTable()
+        var table = await LeagueStandingServices.getTable(await seasonId())
         var seasons = await LeagueStandingServices.filterTableSeason()
     }catch(err){
         console.log(err)

@@ -10,7 +10,7 @@ const keys = require('./configs/keys')
 
 // Database setup
 const db = keys.mongoURI // CREATE THE /configs folder with the file keys.json in it.
-mongoose.connect(db, { useNewUrlParser: true })
+mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('MongoDB Connected...'))
   .catch(err => console.log(err))
 
