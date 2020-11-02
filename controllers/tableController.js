@@ -10,7 +10,7 @@ var seasonId = async () => {
     return await LeagueStanding.latestSeasonId()   
 }
 // Exports.
-module.exports ={ tableController, middleware}
+// module.exports ={ tableController, middleware}
 
 /**
  * Displays a start page.
@@ -38,11 +38,9 @@ tableController.index = async function (req, res) {
  */
 
 tableController.handleSeasonFilter = async function (req, res) {
-    console.log(req.query)
-    console.log(req.body)
+   
     if(req.body.seasonValue){
-        console.log(req.body.seasonValue)
-        var table = await LeagueStandingServices.getTable()
+        var table = await LeagueStandingServices.getTable(req.body.seasonValue)
         res.json(table)
     }
     res.end();
@@ -55,3 +53,5 @@ tableController.handleHomeAwayFilter = async function (req, res) {
     // res.end();
 }
 
+// Exports
+module.exports = tableController 

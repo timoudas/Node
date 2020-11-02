@@ -1,4 +1,4 @@
-var mongoose = require('mongoose');
+/*var mongoose = require('mongoose');
 Admin = mongoose.mongo.Admin;
 require('dotenv').config()
 
@@ -9,4 +9,4 @@ var connection = mongoose.connection.useDb('PremierLeague');
 connection.on('error', console.error.bind(console, 'MongoDB connection error:'));
 connection.once('open', () => {
     console.log('connected to db');
-  });
+  });*/
