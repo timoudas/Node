@@ -18,6 +18,7 @@ var seasonId = async () => {
  * @param {object} res - Express response object.
  */
 tableController.index = async function (req, res) {
+    console.log(req.query)
     try{
         var table = await LeagueStandingServices.getTable(await seasonId())
         var seasons = await LeagueStandingServices.filterTableSeason()
