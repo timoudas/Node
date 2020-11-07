@@ -19,7 +19,6 @@ var seasonId = async () => {
  */
 tableController.index = async function (req, res) {
     if (Object.keys(req.query).length === 0){
-        console.log(req.query, 'queer')
         try{
             var table = await LeagueStandingServices.getTable(await seasonId())
             var matchweeks = await LeagueStandingServices.filterMatchweeks(await seasonId())
@@ -27,15 +26,16 @@ tableController.index = async function (req, res) {
         }catch(err){
             console.log(err)
         }
+        res.locals.result = table
+        res.locals.matchweeks = matchweeks
+        res.locals.seasons = seasons
+        res.render('table/index');
     }
     else{
-        console.log(req.query)
-        console.log('hello')
+        var table = await LeagueStandingServices
+            .getTable(req.query.seasonVal, req.query.typeVal)
+        res.json(table)
     }
-    res.locals.result = table
-    res.locals.matchweeks = matchweeks
-    res.locals.seasons = seasons
-    res.render('table/index');
 }
 
 /**

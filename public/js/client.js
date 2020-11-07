@@ -13,14 +13,21 @@ selection.forEach(element => {
    element.addEventListener('click', pickSelection)
 })
 function pickSelection(event) {
+    let text = ""
     switch(event.target.parentElement.id){
         case 'seasonToggle':
+            text = event.target.textContent
+            $('#seasonDropDownMenyButton').text(text)
             seasonSelection =  event.target.value
             break
         case 'homeAwayToggle':
+            text = event.target.textContent
+            $('#homeAwayDropDownMenyButton').text(text)
             typeSelection =  event.target.value
             break
         case 'matchWeekToggle':
+            text = event.target.textContent
+            $('#matchDropDownMenyButton').text(text)
             MatchweekSelection =  event.target.value
             break
     }
@@ -28,47 +35,31 @@ function pickSelection(event) {
         type: 'GET',
         url: '/table?' + $.param({ seasonVal: seasonSelection, 
                                 typeVal: typeSelection,
-                                matchWeekVal: MatchweekSelection})
-        
+                                matchWeekVal: MatchweekSelection}),
+        success: (filteredSeasonValues) => {            
+            $('#league-table-rows').empty();
+            for(let i = 0; i < 20; i++) {
+                let filteredTr = filteredSeasonValues[i]
+                let newHtml = `<tr>
+                <td>${filteredTr.position}</td>
+                <td>${filteredTr.team_shortName}</td>
+                <td>${filteredTr.played}</td>
+                <td>${filteredTr.won}</td>
+                <td>${filteredTr.drawn}</td>
+                <td>${filteredTr.lost}</td>
+                <td>${filteredTr.goalsFor}</td>
+                <td>${filteredTr.goalsAgainst}</td>
+                <td>${filteredTr.goalsDifference}</td>
+                <td>${filteredTr.points}</td>
+                </tr>`
+
+                $('#league-table-rows').append(newHtml)
+            }
+        }
     })
 }
 
 
-
-
- 
-
-//Post request to update league table
-// $.ajax({
-//     type: 'GET',
-//     url: '/table',
-//     data: jQuery.param({seasonValue: value,
-//                         homeAwayValue: }),
-//     success: (filteredSeasonValues) => {
-//         console.log("result: ")
-//         console.log(filteredSeasonValues)
-        
-//         $('#league-table-rows').empty();
-//         for(let i = 0; i < 20; i++) {
-//             let filteredTr = filteredSeasonValues[i]
-//             let newHtml = `<tr>
-//             <td>${filteredTr.position}</td>
-//             <td>${filteredTr.team_shortName}</td>
-//             <td>${filteredTr.played}</td>
-//             <td>${filteredTr.won}</td>
-//             <td>${filteredTr.drawn}</td>
-//             <td>${filteredTr.lost}</td>
-//             <td>${filteredTr.goalsFor}</td>
-//             <td>${filteredTr.goalsAgainst}</td>
-//             <td>${filteredTr.goalsDifference}</td>
-//             <td>${filteredTr.points}</td>
-//             </tr>`
-
-//             $('#league-table-rows').append(newHtml)
-//         }
-        
-//     },
-// })
 
 
 // //Get value/text from season-toggle
