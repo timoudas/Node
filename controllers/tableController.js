@@ -18,14 +18,22 @@ var seasonId = async () => {
  * @param {object} res - Express response object.
  */
 tableController.index = async function (req, res) {
-    console.log(req.query)
-    try{
-        var table = await LeagueStandingServices.getTable(await seasonId())
-        var seasons = await LeagueStandingServices.filterTableSeason()
-    }catch(err){
-        console.log(err)
+    if (Object.keys(req.query).length === 0){
+        console.log(req.query, 'queer')
+        try{
+            var table = await LeagueStandingServices.getTable(await seasonId())
+            var matchweeks = await LeagueStandingServices.filterMatchweeks(await seasonId())
+            var seasons = await LeagueStandingServices.filterTableSeason()
+        }catch(err){
+            console.log(err)
+        }
+    }
+    else{
+        console.log(req.query)
+        console.log('hello')
     }
     res.locals.result = table
+    res.locals.matchweeks = matchweeks
     res.locals.seasons = seasons
     res.render('table/index');
 }
@@ -37,21 +45,16 @@ tableController.index = async function (req, res) {
  * @param {*} res 
  */
 
-tableController.handleSeasonFilter = async function (req, res) {
-   
+tableController.handleFilters = async function (req, res) {
+   console.log(req.query)
     if(req.body.seasonValue){
-        var table = await LeagueStandingServices.getTable(req.body.seasonValue)
+        console.log(req.query)
+        var table = await LeagueStandingServices.getTable(req.query.seasonVal)
         res.json(table)
     }
     res.end();
 }
 
-tableController.handleHomeAwayFilter = async function (req, res) {
-
-    seasonId = req.body.seasonValue
-    homeAwayValue = req.body.homeAwayValue
-    // res.end();
-}
 
 // Exports
 module.exports = tableController 

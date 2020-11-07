@@ -7,8 +7,7 @@ const tableController = require('../controllers/tableController')
 
 // GET
 router.get('/table', tableController.index)
-router.get('/table/:id', tableController.index)
-router.post('/table', tableController.handleSeasonFilter) // To be able to catch POST request we need a route that handles POST requests
+router.get('/table/:id', tableController.handleFilters)
 
 // Exports.
 module.exports = router

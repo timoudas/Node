@@ -1,24 +1,42 @@
 // Using .html in jQuery big NO NO: https://medium.com/@jenlindner22/the-risk-of-innerhtml-3981253fe217, switched to .text
-//Get value/text from season-toggle
-// var seasonIdValue = $('#season-toggle').bind('click', function(event) {
-//     let value = event.target.value 
-//     console.log(value)
-//     return value
-// })
 
-// var seasonLabelText = $('#season-toggle').bind('click', function(event) {
-//     let text = event.target.textContent
-//     console.log(text)
-//     $('#seasonDropDownMenyButton').text(text); 
-// });
+// Get initial value from filters
+var seasonSelection = $('#seasonToggle').children(":first").val()
+var typeSelection = $('#homeAwayToggle').children(":first").val()
+var MatchweekSelection = $('#homeAwayToggle').children(":first").val()
 
-var getTableFilters = function(event){
-    console.log(event.target.textContent)
+
+
+//Click eventlistner for all filters
+const selection = document.querySelectorAll(".dropdown-item");
+selection.forEach(element => {
+   element.addEventListener('click', pickSelection)
+})
+function pickSelection(event) {
+    switch(event.target.parentElement.id){
+        case 'seasonToggle':
+            seasonSelection =  event.target.value
+            break
+        case 'homeAwayToggle':
+            typeSelection =  event.target.value
+            break
+        case 'matchWeekToggle':
+            MatchweekSelection =  event.target.value
+            break
+    }
+    $.ajax({
+        type: 'GET',
+        url: '/table?' + $.param({ seasonVal: seasonSelection, 
+                                typeVal: typeSelection,
+                                matchWeekVal: MatchweekSelection})
+        
+    })
 }
-$('#season-toggle')
-    .click(getTableFilters)
-$('#homeAwayToggle')
-    .click(getTableFilters)  
+
+
+
+
+ 
 
 //Post request to update league table
 // $.ajax({

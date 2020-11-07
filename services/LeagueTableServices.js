@@ -1,11 +1,12 @@
 const { LeagueStandingsModel } = require("../models/LeagueStanding");
+const { TeamStandingsModel } = require("../models/TeamStandings");
 
 
 /** 
  * Gets league table from db
  * @param {string} SeasonId - Id for specific season
 */
-async function getTable(seasonId, tableType="overall") {
+async function getTable(seasonId, tableType="overall", ) {
 
         seasonId = parseInt(seasonId);
         var tableType = tableType
@@ -74,8 +75,31 @@ async function filterTableSeason() {
     return data;
 }
 
+async function filterMatchweeks(seasonId) {
+    seasonId = parseInt(seasonId);
+    var data = await TeamStandingsModel.aggregate()
+    .match({
+        'seasonId': seasonId
+    })
+    .group({
+        '_id': '$gameweek', 'matchweek': { '$first': '$gameweek' }
+    })
+    .sort({
+        '_id': 1
+    });
+    var allMatchWeeks = data.slice(-1)[0]['_id']
+    data.unshift({'_id':allMatchWeeks, 'matchweek': 'All Matchweeks'})
+    return data;
+}
+
+async function teamForm(){
+    //get teams fort
+}
+
 module.exports = {
     getTable,
     latestSeasonId,
     filterTableSeason,
+    filterMatchweeks,
+    teamForm,
 }

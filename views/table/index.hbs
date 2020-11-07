@@ -5,7 +5,7 @@
             <button class="btn btn-secondary dropdown-toggle" type="button" id="seasonDropDownMenyButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Filter by Season
             </button>
-            <div class="dropdown-menu" id="season-toggle" aria-labelledby="dropdownMenuButton">
+            <div class="dropdown-menu" id="seasonToggle" aria-labelledby="dropdownMenuButton">
                 {{#each seasons}}
                         <button class="dropdown-item" type="button" value={{this._id}}>{{this.SeasonLabel}}</button>
                 {{/each}}
@@ -16,13 +16,19 @@
                 Filter by Home or Away
             </button>
             <div class="dropdown-menu" id="homeAwayToggle" aria-labelledby="dropdownMenuButton">
-                <button class="dropdown-item" type="button" value=1>Overall</button>
+                <button class="dropdown-item" type="button" value=1>All Matches</button>
                 <button class="dropdown-item" type="button" value=2>Home</button>
                 <button class="dropdown-item" type="button" value=3>Away</button>
             </div>
         </div>    
         <div class="col-sm">
-        One of three columns
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="seasonDropDownMenyButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Filter by Matchweek
+            </button>
+            <div class="dropdown-menu" id="matchWeekToggle" aria-labelledby="dropdownMenuButton">
+                {{#each matchweeks}}
+                        <button class="dropdown-item" type="button" value={{this._id}}>{{this.matchweek}}</button>
+                {{/each}}
         </div>
     </div>
     <table class="table table-dark">
