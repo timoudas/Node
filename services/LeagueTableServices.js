@@ -61,6 +61,21 @@ async function latestSeasonId() {
     return seasonId;
 }
 
+async function latestSeasonLabel() {
+    var data = await LeagueStandingsModel.aggregate()
+        .group({
+            '_id': '$seasonId', 'SeasonLabel': { '$first': '$seasonLabel' }
+        })
+        .sort({
+            'SeasonLabel': -1
+        })
+        .project({
+            'SeasonLabel': 1
+        })
+        .limit(1);
+    var seasonId = data[0]['SeasonLabel'];
+    return seasonId;
+}
 /**
  * Gets all seasonsIds and seasonLabels from db
  */
@@ -101,5 +116,6 @@ module.exports = {
     latestSeasonId,
     filterTableSeason,
     filterMatchweeks,
+    latestSeasonLabel,
     teamForm,
 }

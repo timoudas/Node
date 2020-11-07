@@ -17,12 +17,12 @@ function pickSelection(event) {
     switch(event.target.parentElement.id){
         case 'seasonToggle':
             text = event.target.textContent
-            $('#seasonDropDownMenyButton').text(text)
+            $('#seasonvalue').text(text)
             seasonSelection =  event.target.value
             break
         case 'homeAwayToggle':
             text = event.target.textContent
-            $('#homeAwayDropDownMenyButton').text(text)
+            $('#typevalue').text(text)
             typeSelection =  event.target.value
             break
         case 'matchWeekToggle':
@@ -36,13 +36,14 @@ function pickSelection(event) {
         url: '/table?' + $.param({ seasonVal: seasonSelection, 
                                 typeVal: typeSelection,
                                 matchWeekVal: MatchweekSelection}),
-        success: (filteredSeasonValues) => {            
+   success: (filteredSeasonValues) => {            
             $('#league-table-rows').empty();
             for(let i = 0; i < 20; i++) {
                 let filteredTr = filteredSeasonValues[i]
                 let newHtml = `<tr>
                 <td>${filteredTr.position}</td>
-                <td>${filteredTr.team_shortName}</td>
+                <td><img src='badges/${filteredTr.team_shortName}.png' />
+                ${filteredTr.team_shortName}</td>
                 <td>${filteredTr.played}</td>
                 <td>${filteredTr.won}</td>
                 <td>${filteredTr.drawn}</td>

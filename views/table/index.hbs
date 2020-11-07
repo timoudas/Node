@@ -4,6 +4,7 @@
         <div class="col-sm">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="seasonDropDownMenyButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Filter by Season
+                <div id='seasonvalue'>{{seasonLabel}}</div>
             </button>
             <div class="dropdown-menu" id="seasonToggle" aria-labelledby="dropdownMenuButton">
                 {{#each seasons}}
@@ -14,6 +15,7 @@
         <div class="col-sm">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="homeAwayDropDownMenyButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Filter by Home or Away
+                <div id='typevalue'>All Matches</div>
             </button>
             <div class="dropdown-menu" id="homeAwayToggle" aria-labelledby="dropdownMenuButton">
                 <button class="dropdown-item" type="button" value=overall>All Matches</button>

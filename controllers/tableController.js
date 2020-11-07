@@ -4,13 +4,18 @@ const tableController = {}
 const { registerDecorator } = require('handlebars')
 const { Collection } = require('mongoose')
 const LeagueStandingServices = require('../services/LeagueTableServices.js')
-let homeAwayValue = 1
+
 
 var seasonId = async () => {
     const result = await LeagueStandingServices.latestSeasonId()   
     return result
 }
+var seasonLabel = async () => {
+    const result = await LeagueStandingServices.latestSeasonLabel()   
+    return result
+}
 
+  
 /**
  * Displays a start page.
  *
@@ -26,6 +31,7 @@ tableController.index = async function (req, res) {
         }catch(err){
             console.log(err)
         }
+        res.locals.seasonLabel = await seasonLabel()
         res.locals.result = table
         res.locals.matchweeks = matchweeks
         res.locals.seasons = seasons
