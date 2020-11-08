@@ -30,7 +30,7 @@ app.use(bodyParser.json())
 
 // Routing
 app.use('/', require('./routes/homeRouter'))
-app.use('/', require('./routes/tableRouter'))
+app.use('/table', require('./routes/tableRouter'))
 
 app.use('*', (req, res, next) => {
     res.send('Oops! 404: Cant find the requested resource... Sorry')

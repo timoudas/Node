@@ -31,12 +31,13 @@ function pickSelection(event) {
             MatchweekSelection =  event.target.value
             break
     }
+    //Get request for
     $.ajax({
-        type: 'GET',
+        type: 'POST',
         url: '/table?' + $.param({ seasonVal: seasonSelection, 
                                 typeVal: typeSelection,
                                 matchWeekVal: MatchweekSelection}),
-   success: (filteredSeasonValues) => {            
+   success: (filteredSeasonValues) => {          
             $('#league-table-rows').empty();
             for(let i = 0; i < 20; i++) {
                 let filteredTr = filteredSeasonValues[i]

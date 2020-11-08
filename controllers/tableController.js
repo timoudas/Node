@@ -23,25 +23,24 @@ var seasonLabel = async () => {
  * @param {object} res - Express response object.
  */
 tableController.index = async function (req, res) {
-    if (Object.keys(req.query).length === 0){
-        try{
-            var table = await LeagueStandingServices.getTable(await seasonId())
-            var matchweeks = await LeagueStandingServices.filterMatchweeks(await seasonId())
-            var seasons = await LeagueStandingServices.filterTableSeason()
-        }catch(err){
-            console.log(err)
-        }
-        res.locals.seasonLabel = await seasonLabel()
-        res.locals.result = table
-        res.locals.matchweeks = matchweeks
-        res.locals.seasons = seasons
-        res.render('table/index');
+    try{
+        var matchweeks = await LeagueStandingServices.filterMatchweeks(await seasonId())
+        var seasons = await LeagueStandingServices.filterTableSeason()
+    }catch(err){
+        console.log(err)
     }
-    else{
-        var table = await LeagueStandingServices
-            .getTable(req.query.seasonVal, req.query.typeVal)
-        res.json(table)
+    try{
+        var table = await LeagueStandingServices.getTable(await seasonId())
+        var matchweeks = await LeagueStandingServices.filterMatchweeks(await seasonId())
+        var seasons = await LeagueStandingServices.filterTableSeason()
+    }catch(err){
+        console.log(err)
     }
+    res.locals.seasonLabel = await seasonLabel()
+    res.locals.result = table
+    res.locals.matchweeks = matchweeks
+    res.locals.seasons = seasons
+    res.render('table/index');
 }
 
 /**
@@ -52,14 +51,12 @@ tableController.index = async function (req, res) {
  */
 
 tableController.handleFilters = async function (req, res) {
-   console.log(req.query)
-    if(req.body.seasonValue){
-        console.log(req.query)
-        var table = await LeagueStandingServices.getTable(req.query.seasonVal)
+    var table = await LeagueStandingServices
+    .getTable(req.query.seasonVal, req.query.typeVal)
         res.json(table)
+        res.end()
     }
-    res.end();
-}
+
 
 
 // Exports

@@ -6,8 +6,9 @@ const router = express.Router()
 const tableController = require('../controllers/tableController')
 
 // GET
-router.get('/table', tableController.index)
-router.get('/table/:id', tableController.handleFilters)
+router.get('/', tableController.index)
+// router.get('/:id', tableController.index)
+router.post('/', tableController.handleFilters)
 
 // Exports.
 module.exports = router

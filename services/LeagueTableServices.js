@@ -2,6 +2,7 @@ const { LeagueStandingsModel } = require("../models/LeagueStanding");
 const { TeamStandingsModel } = require("../models/TeamStandings");
 
 
+
 /** 
  * Gets league table from db
  * @param {string} SeasonId - Id for specific season
@@ -108,8 +109,53 @@ async function filterMatchweeks(seasonId) {
 }
 
 async function teamForm(){
-    //get teams fort
+    var data = await TeamStandingsModel.aggregate()
+    .match({
+        'seasonId': await latestSeasonId(), 'team_id': 1,
+    })
+    .sort({
+        'gameweek':-1
+    })
+    .unwind(
+        'fixtures'
+    )
+    .addFields({
+        'form' : [],
+    })
+    .project({
+        'form': {
+            '$switch': {
+                "branches": [
+                    {'case': {
+                        "$eq": ['$team_id', '$fixtures.home_team_id']
+                        }, 'then': {
+                            "branches": [
+                                {'case:': {"$gt": ['$fixtures.home_team_score', '$fixtures.awat_team_score']}, 'then': 'W'},
+                                {'case:': {"$eq": ['$fixtures.home_team_score', '$fixtures.awat_team_score']}, 'then': 'D'},
+                                {'case:': {"$lt": ['$fixtures.home_team_score', '$fixtures.awat_team_score']}, 'then': 'L'},
+                            ]
+                        }
+                    },
+                    {'case': {
+                        "$eq": ['$team_id', '$fixtures.away_team_id']
+                        }, 'then': {
+                            "branches": [
+                                {'case:': {"$gt": ['$fixtures.home_team_score', '$fixtures.awat_team_score']}, 'then': 'L'},
+                                {'case:': {"$eq": ['$fixtures.home_team_score', '$fixtures.awat_team_score']}, 'then': 'D'},
+                                {'case:': {"$lt": ['$fixtures.home_team_score', '$fixtures.awat_team_score']}, 'then': 'W'},
+                            ]
+                        }
+                    }
+                ]
+            }
+        },
+    })
+    .out(
+        'form_stats'
+    )
+    return data
 }
+teamForm()
 
 module.exports = {
     getTable,
