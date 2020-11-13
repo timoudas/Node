@@ -4,6 +4,7 @@
 var seasonSelection = $('#seasonToggle').children(":first").val()
 var typeSelection = $('#homeAwayToggle').children(":first").val()
 var MatchweekSelection = $('#homeAwayToggle').children(":first").val()
+var leagueTableUpdateTimeStamp = 0
 
 
 $('#updateDataButton').bind('click', function(event){
