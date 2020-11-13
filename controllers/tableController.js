@@ -50,6 +50,12 @@ tableController.index = async function (req, res) {
  * @param {*} res 
  */
 
+tableController.updateData = async function(req, res){
+    await LeagueStandingServices.updateTableData()
+    console.log('Data updated')
+    res.redirect('table/index')
+}
+
 tableController.handleFilters = async function (req, res) {
     var table = await LeagueStandingServices
     .getTable(req.query.seasonVal, req.query.typeVal)

@@ -1,5 +1,7 @@
 const { LeagueStandingsModel } = require("../models/LeagueStanding");
 const { TeamStandingsModel } = require("../models/TeamStandings");
+const { spawn } = require('child_process');
+
 
 
 
@@ -7,7 +9,14 @@ const { TeamStandingsModel } = require("../models/TeamStandings");
  * Gets league table from db
  * @param {string} SeasonId - Id for specific season
 */
-async function getTable(seasonId, tableType="overall", ) {
+async function updateTableData(){
+    const pyProg = await spawn('python', ['./../premier_league_api/cli_stats/subprocess_cli.py', '-u', '-l', 'en_pr']);
+    pyProg.stdout.on('data', function(data) {
+    console.log(data.toString());
+    })
+}
+
+async function getTable(seasonId, tableType="overall",) {
 
         seasonId = parseInt(seasonId);
         var tableType = tableType
@@ -164,4 +173,5 @@ module.exports = {
     filterMatchweeks,
     latestSeasonLabel,
     teamForm,
+    updateTableData
 }

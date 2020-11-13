@@ -6,6 +6,19 @@ var typeSelection = $('#homeAwayToggle').children(":first").val()
 var MatchweekSelection = $('#homeAwayToggle').children(":first").val()
 
 
+$('#updateDataButton').bind('click', function(event){
+    console.log(event.timeStamp)
+    $.ajax({
+        type: 'POST',
+        url: '/table/update_data',
+        success: () => {
+            console.log('success')
+            window.location = "/table";
+        }
+        
+    })
+});
+
 
 //Click eventlistner for all filters
 const selection = document.querySelectorAll(".dropdown-item");

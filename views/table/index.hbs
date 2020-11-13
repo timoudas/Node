@@ -1,7 +1,7 @@
 {{> navbar}}
  <div class='container-fluid'>
     <div class="row">
-        <div class="col-sm">
+        <div class='col col-lg-2'>
             <button class="btn btn-secondary dropdown-toggle" type="button" id="seasonDropDownMenyButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Filter by Season
                 <div id='seasonvalue'>{{seasonLabel}}</div>
@@ -12,7 +12,7 @@
                 {{/each}}
             </div>
         </div>    
-        <div class="col-sm">
+        <div class="col col-lg-2">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="homeAwayDropDownMenyButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Filter by Home or Away
                 <div id='typevalue'>All Matches</div>
@@ -23,7 +23,7 @@
                 <button class="dropdown-item" type="button" value=away>Away</button>
             </div>
         </div>    
-        <div class="col-sm">
+        <div class="col col-lg-2">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="matchDropDownMenyButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Filter by Matchweek
             </button>
@@ -31,6 +31,12 @@
                 {{#each matchweeks}}
                         <button class="dropdown-item" type="button" value={{this._id}}>{{this.matchweek}}</button>
                 {{/each}}
+            </div>
+        </div>
+        <div class="col col-lg-2">
+            <button class='btn btn-secondary' type=''button id='updateDataButton'>
+                Update Data
+            </button>
         </div>
     </div>
     <table class="table table-dark">
