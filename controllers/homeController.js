@@ -3,12 +3,8 @@
 const homeController = {}
 const { registerDecorator } = require('handlebars')
 const { Collection } = require('mongoose')
-const LeagueStandingServices = require('../services/LeagueTableServices')
-const db = require('../_helpers/db')
-let homeAwayValue = 1
-var seasonId = async () => {
-    return await LeagueStanding.latestSeasonId()   
-}
+const ScheduleServices = require('../services/ScheduleService')
+
 
 /**
  * Displays a start page.
@@ -17,6 +13,7 @@ var seasonId = async () => {
  * @param {object} res - Express response object.
  */
 homeController.index = async function (req, res) {
+    res.locals.schedule = await ScheduleServices.getSchedule()
     res.render('home/home');
 }
 

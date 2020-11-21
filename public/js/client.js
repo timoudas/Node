@@ -14,7 +14,7 @@ $('#updateDataButton').bind('click', function(event){
         url: '/table/update_data',
         success: () => {
             console.log('success')
-            window.location = "/table";
+            window.location = "/";
         }
         
     })

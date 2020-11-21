@@ -1,1 +1,17 @@
 {{> navbar}}
+
+<div class='calender container'>
+    <div class='calander-games'>
+        {{#each schedule}}
+            <div class='block-home team-home'>{{this.teams.0.team.shortName}}</div>
+        {{/each}}
+        {{#each schedule}}
+            <div class='match-info'>{{this.provisionalKickoff.label}}</div>
+        {{/each}}
+        {{#each schedule}}
+            <div class='block-away team-away'>{{this.teams.1.team.shortName}}</div>
+        {{/each}}
+        
+        <div>Hello</div>
+    </div>
+</div>

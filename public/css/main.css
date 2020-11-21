@@ -1,0 +1,9 @@
+.block-home team-home{
+    float: right;
+    margin-right: -60px;
+}
+
+.block-away team-away{
+    float: left;
+    margin-right: -60px;
+}

@@ -5,4 +5,4 @@ var PlayerFixtureStatsSchema = new mongoose.Schema({},
 
 var PlayerFixtureStatsModel = mongoose.model('fixture_player_stats', PlayerFixtureStatsSchema);
 
-module.exports{PlayerFixtureStatsModel}
+module.exports = {PlayerFixtureStatsModel}
