@@ -5,7 +5,6 @@ var bodyParser = require('body-parser');
 const { join } = require('path')
 const app = express();
 const keys = require('./configs/keys')
-// const db = require('./_helpers/db');
 
 
 // Database setup

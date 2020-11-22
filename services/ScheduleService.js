@@ -7,6 +7,14 @@ async function getSchedule(){
         .sort({
             'provisionalKickoff.millis': -1
         })
+        .project({
+            'kickoffLabel': {
+                '$substr': ['$provisionalKickoff.label', 0, 4]
+            },
+            'teams': 1,
+
+
+        })
         .limit(10)
     console.log(data)
     return data

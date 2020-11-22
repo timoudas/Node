@@ -3,15 +3,27 @@
 <div class='calender container'>
     <div class='calander-games'>
         {{#each schedule}}
-            <div class='block-home team-home'>{{this.teams.0.team.shortName}}</div>
+            <div class='calender-game'>
+
+                <div class='block-home team-home'>
+                    <div class='team-title'>
+                        <a href='#'>{{this.teams.0.team.shortName}}</a>
+                    </div>
+                </div>
+
+                <div class='match-info'>
+                    <div class='match-time'>
+                        {{this.kickoffLabel}}
+                    </div>
+                </div>
+
+                <div class='block-away team-away'>
+                    <div class='team-title'>
+                        <a href='#'>{{this.teams.1.team.shortName}}</a>
+                    </div>
+                </div>
+
+            </div>
         {{/each}}
-        {{#each schedule}}
-            <div class='match-info'>{{this.provisionalKickoff.label}}</div>
-        {{/each}}
-        {{#each schedule}}
-            <div class='block-away team-away'>{{this.teams.1.team.shortName}}</div>
-        {{/each}}
-        
-        <div>Hello</div>
     </div>
 </div>

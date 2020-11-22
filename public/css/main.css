@@ -1,9 +1,16 @@
-.block-home team-home{
-    float: right;
-    margin-right: -60px;
+.block-home {
+    float: left;
+    text-align: right;
+
 }
 
-.block-away team-away{
-    float: left;
-    margin-right: -60px;
+.block-away {
+    float: right;
+    text-align: left;
 }
+
+
+/* .calender-game {
+    display: inline;
+    background-color: rgb(42, 165, 114);
+} */
