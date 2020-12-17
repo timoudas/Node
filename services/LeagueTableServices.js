@@ -1,5 +1,6 @@
 const { LeagueStandingsModel } = require("../models/LeagueStanding");
 const { TeamStandingsModel } = require("../models/TeamStandings");
+const utils = require('../services/utils.js')
 const { spawn } = require('child_process');
 
 
@@ -42,50 +43,13 @@ async function getTable(seasonId, tableType="overall",) {
             '_id': 0,
         })
         .sort({
-            'position': 1
+            'points': -1,
+            'goalsDifference': -1
         });
     return data;
 }
 
-/**
- * Gets latest season from db
- */
-async function latestSeasonId() {
-    var data = await LeagueStandingsModel.aggregate()
-        .group({
-            '_id': '$seasonId', 'SeasonLabel': { '$first': '$seasonLabel' }
-        })
-        .project({
-            'season': {
-                '$substr': ['$SeasonLabel', 0, 4]
-            },
-        })
-        .sort({
-            'season': -1
-        })
-        .project({
-            'season': 0
-        })
-        .limit(1);
-    var seasonId = data[0]['_id'];
-    return seasonId;
-}
 
-async function latestSeasonLabel() {
-    var data = await LeagueStandingsModel.aggregate()
-        .group({
-            '_id': '$seasonId', 'SeasonLabel': { '$first': '$seasonLabel' }
-        })
-        .sort({
-            'SeasonLabel': -1
-        })
-        .project({
-            'SeasonLabel': 1
-        })
-        .limit(1);
-    var seasonId = data[0]['SeasonLabel'];
-    return seasonId;
-}
 /**
  * Gets all seasonsIds and seasonLabels from db
  */
@@ -120,7 +84,7 @@ async function filterMatchweeks(seasonId) {
 async function teamForm(){
     var data = await TeamStandingsModel.aggregate()
     .match({
-        'seasonId': await latestSeasonId(), 'team_id': 1,
+        'seasonId': await utils.latestSeasonId(), 'team_id': 1,
     })
     .sort({
         'gameweek':-1
@@ -168,10 +132,8 @@ teamForm()
 
 module.exports = {
     getTable,
-    latestSeasonId,
     filterTableSeason,
     filterMatchweeks,
-    latestSeasonLabel,
     teamForm,
     updateTableData
 }

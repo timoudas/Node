@@ -4,14 +4,15 @@ const tableController = {}
 const { registerDecorator } = require('handlebars')
 const { Collection } = require('mongoose')
 const LeagueStandingServices = require('../services/LeagueTableServices.js')
+const utils = require('../services/utils.js')
 
 
 var seasonId = async () => {
-    const result = await LeagueStandingServices.latestSeasonId()   
+    const result = await utils.latestSeasonId()   
     return result
 }
 var seasonLabel = async () => {
-    const result = await LeagueStandingServices.latestSeasonLabel()   
+    const result = await utils.latestSeasonLabel()   
     return result
 }
 

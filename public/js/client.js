@@ -56,7 +56,7 @@ function pickSelection(event) {
             for(let i = 0; i < 20; i++) {
                 let filteredTr = filteredSeasonValues[i]
                 let newHtml = `<tr>
-                <td>${filteredTr.position}</td>
+                <td>${i+1}</td>
                 <td><img src='badges/${filteredTr.team_shortName}.png' />
                 ${filteredTr.team_shortName}</td>
                 <td>${filteredTr.played}</td>

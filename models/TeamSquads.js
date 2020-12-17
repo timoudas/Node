@@ -5,4 +5,4 @@ var TeamSquadsSchema = new mongoose.Schema({},
 
 var TeamSquadsModel = mongoose.model('team_squads', TeamSquadsSchema);
 
-module.exports{TeamSquadsModel}
+module.exports = {TeamSquadsModel}

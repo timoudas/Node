@@ -1,5 +1,5 @@
 const { ScheduleModel } = require("../models/Schedule");
-const { spawn } = require('child_process');
+
 
 async function getSchedule(){
 
@@ -9,7 +9,7 @@ async function getSchedule(){
         })
         .project({
             'kickoffLabel': {
-                '$substr': ['$provisionalKickoff.label', 0, 4]
+                '$substr': ['$provisionalKickoff.label', 17, 5]
             },
             'teams': 1,
 

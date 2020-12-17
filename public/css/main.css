@@ -1,16 +1,56 @@
-.block-home {
+.calendar-game{
+    display: inline-block;
+    width: 100%;
+    padding: 10px 0px;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.calendar-game .block-home {
     float: left;
+    margin-right: -60px;
+    width: 50%;
+    line-height: 32px;
+}
+
+.calendar-game .block-home .team-title {
+    margin-right: 60px;
     text-align: right;
-
+    font-size: 24px;
 }
 
-.block-away {
+.calendar-game .match-info {
+    width: 80px;
+    text-align: center;
+    font-size: 1.8rem;
+    margin: -5px 15px;
+    box-sizing: border-box;
+    position: relative;
+    display: inline-block;
+}
+.calendar-game .block-away {
     float: right;
-    text-align: left;
+    margin-left: -60px;
+    width: 50%;
+    line-height: 32px;
+    font-size: 24px;
+}
+.calendar-game .block-away .team-title {
+    margin-left: 60px;
+}
+
+a {
+    color: rgb(114, 114, 114);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+    color: inherit;
 }
 
 
-/* .calender-game {
-    display: inline;
-    background-color: rgb(42, 165, 114);
-} */
+
+body.theme-dark {
+    background-color: #343436;
+}
