@@ -30,15 +30,37 @@ async function getPlayers(seasonId, teamId){
         'seasonId': parseInt(seasonId),
         'teamId': parseInt(teamId)
     })
-
-    .project({
-        'players': 1
-    })
     .unwind(
-        'players'
+        '$players'
     )
-
-    console.log(data)
+    .group({
+        '_id': {
+            'players': '$players'
+        }
+    })
+    .project({
+        'playerId': '$_id.players.p_id',
+        'playerName': '$_id.players.name',
+        '_id': 0
+    })
+    .group({
+        '_id': {
+            'playerId': '$playerId',
+            'playerName': '$playerName'
+        }
+    })
+    .project({
+        'playerId': '$_id.playerId',
+        'playerName': '$_id.playerName',
+        '_id': 0
+    })
+    console.log(data, 'data')
     return data
 }
-getPlayers(274, 1)
+
+getPlayers(274, 2)
+
+module.exports = {
+    getPlayers,
+    getTeams,
+}

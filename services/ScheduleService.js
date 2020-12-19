@@ -16,7 +16,6 @@ async function getSchedule(){
 
         })
         .limit(10)
-    console.log(data)
     return data
 }
 
