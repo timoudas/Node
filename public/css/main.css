@@ -1,9 +1,10 @@
 .calendar-game{
     display: inline-block;
-    width: 100%;
+    width: 60%;
     padding: 10px 0px;
     position: relative;
     box-sizing: border-box;
+    border-style: double;
 }
 
 .calendar-game .block-home {
@@ -16,7 +17,7 @@
 .calendar-game .block-home .team-title {
     margin-right: 60px;
     text-align: right;
-    font-size: 24px;
+    font-size: 16px;
 }
 
 .calendar-game .match-info {
@@ -33,10 +34,10 @@
     margin-left: -60px;
     width: 50%;
     line-height: 32px;
-    font-size: 24px;
 }
 .calendar-game .block-away .team-title {
     margin-left: 60px;
+    font-size: 16px;
 }
 
 a {
