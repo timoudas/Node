@@ -1,4 +1,6 @@
 const { TeamSquadsModel } = require("../models/TeamSquads");
+const { PlayerFixtureStatsModel } = require("../models/FixturePlayer");
+const utils = require('../services/utils.js')
 
 async function getTeams(seasonId){
     var data = await TeamSquadsModel.aggregate()
@@ -58,7 +60,76 @@ async function getPlayers(seasonId, teamId){
     return data
 }
 
-getPlayers(274, 2)
+async function getKeyPassPlayers(){
+    var season = await utils.latestSeasonId()
+    var data = await PlayerFixtureStatsModel.aggregate()
+    .match({
+        'seasonId': season
+    })
+    .group({
+        '_id': {
+            'id': '$id', 
+            'season': '$seasonId', 
+        },
+        'total_pass': {'$sum': '$total_pass'},
+        'total_mins_played': {'$sum': '$mins_played'},
+        'name': {'$first': '$name'},
+    })
+    .project({
+        'totalPlaytime': '$total_mins_played',
+        'total_pass': 1,
+        'averagePasses': {'$cond': [ {'$eq':['$total_mins_played', 0]} , 0,
+            {'$multiply':[90, {"$divide":["$total_pass", "$total_mins_played"]}]} ]
+        },
+        'name': '$name',
+        'id': '$_id.id',
+        'seasonId': '$_id.season',
+        '_id': 0
+    })
+    .sort({
+        'total_pass': -1
+    })
+    .limit(20)
+    .lookup({
+        'from': 'player_stats',
+        'let': {'id': '$id', 'seasonId': '$seasonId'},
+        'pipeline': [
+            { '$match':
+               { '$expr':
+                  { '$and':
+                     [
+                       { '$eq': [ "$seasonId", "$$seasonId" ] },
+                       { '$eq': [ "$p_id", "$$id" ] }
+                     ]
+                  }
+               }
+            },
+         ],
+        'as': 'player_stats'
+    })
+    .unwind(
+        'player_stats'
+    )
+    .project({
+        'totalPlaytime': 1,
+        'averagePasses': 1,
+        'name': 1,
+        'seasonId': 1,
+        'appearances': '$player_stats.appearances',
+        'averagePlaytime': {'$divide': ['$totalPlaytime', '$player_stats.appearances']},
+        '_id': 0
+    })
+    .sort({
+        'averagePasses': -1
+    })
+
+
+
+ 
+    console.log(data)
+    return data
+}
+getKeyPassPlayers()
 
 module.exports = {
     getPlayers,
