@@ -128,6 +128,7 @@ async function getKeyPassPlayers(){
         'teamName': '$player_stats.teamName',
         'appearances': '$player_stats.players.appearances',
         'position': '$player_stats.players.position',
+        'averagePlaytime': {'$round': [ {'$divide':['$totalPlaytime', '$player_stats.players.appearances'] }, 1] },
         '_id': 0
     })
 
