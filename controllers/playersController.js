@@ -1,6 +1,6 @@
 'use strict'
 
-const homeController = {}
+const playerController = {}
 const ScheduleServices = require('../services/ScheduleService')
 const TeamPlayersServices = require('../services/TeamPlayersService')
 
@@ -11,9 +11,9 @@ const TeamPlayersServices = require('../services/TeamPlayersService')
  * @param {object} req - Express request object.
  * @param {object} res - Express response object.
  */
-homeController.index = async function (req, res) {
-    res.locals.schedule = await ScheduleServices.getSchedule()
-    res.render('home/home');
+playerController.index = async function (req, res) {
+    res.locals.teams = await TeamPlayersServices.getTeams()
+    res.render('players/index');
 }
 
-module.exports = homeController
+module.exports = playerController

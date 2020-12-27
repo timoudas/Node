@@ -9,10 +9,10 @@ const utils = require('../services/utils.js')
  * Returns an array of objects with teamIds
  * 
  */
-async function getTeams(seasonId){
+async function getTeams(){
     var data = await TeamSquadsModel.aggregate()
     .match({
-        'seasonId': parseInt(seasonId)
+        'seasonId': await utils.latestSeasonId()
     })
     .group({
         '_id':{
@@ -32,6 +32,7 @@ async function getTeams(seasonId){
     console.log(data)
     return data
 }
+
 
 /**
  * 
@@ -69,7 +70,6 @@ async function getPlayers(seasonId, teamId){
         'playerName': '$_id.playerName',
         '_id': 0
     })
-    console.log(data, 'data')
     return data
 }
 
@@ -133,8 +133,6 @@ async function getKeyPassPlayers(){
     })
 
 
-
-    console.log(data)
     return data
 }
 getKeyPassPlayers()

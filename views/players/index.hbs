@@ -1,0 +1,16 @@
+{{> navbar}}
+
+<div class="team-container">
+    <ul>
+        {{#each teams}}
+            <li class="teamList">
+                <a href="teams/{{this.teamName}}">
+                    <div>{{this.teamName}}</div>
+                </a>
+            </li>
+        {{/each}}
+    </ul>
+</div>
+
+
+
