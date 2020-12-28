@@ -1,28 +1,19 @@
-{{> navbar}}
 
-<div class='calender container'>
+<div class='home-container'>
     <div class='calender-games'>
         {{#each schedule}}
             <div class='calendar-game'>
-
-                <div class='block-home team-home'>
-                    <div class='team-title'>
-                        <a href='#'>{{this.teams.0.team.shortName}}</a>
-                    </div>
+                <div class='team-home'>
+                    <a href='#'>{{this.teams.0.team.shortName}}</a>
                 </div>
 
                 <div class='match-info'>
-                    <div class='match-time'>
-                        {{this.kickoffLabel}}
-                    </div>
+                    {{this.kickoffLabel}}
                 </div>
 
-                <div class='block-away team-away'>
-                    <div class='team-title'>
-                        <a href='#'>{{this.teams.1.team.shortName}}</a>
-                    </div>
+                <div class='team-away'>
+                    <a href='#'>{{this.teams.1.team.shortName}}</a>
                 </div>
-
             </div>
         {{/each}}
     </div>

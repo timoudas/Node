@@ -1,70 +1,104 @@
-/* Body */
-a {
-    color: rgb(114, 114, 114);
-    text-decoration: none;
+
+/* Simple dashboard grid CSS */
+
+/* Assign grid instructions to our parent grid container */
+.grid-container {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    grid-template-rows: 50px 1fr 50px;
+    grid-template-areas:
+      "sidenav header"
+      "sidenav main"
+      "sidenav footer";
+    height: 100vh;
+}
+  
+  /* Give every child element its grid name */
+.header {
+    grid-area: header;
+    background-color: #648ca6;
+}
+  
+.sidenav {
+    grid-area: sidenav;
+    background-color: #394263;
 }
 
-a:hover {
-    text-decoration: underline;
-    color: inherit;
+.main {
+    grid-area: main;
+    background-color: #d0f7fa;
 }
 
-
-body.theme-dark {
-    background-color: #343436;
+.footer {
+    grid-area: footer;
+    background-color: #648ca6;
 }
 
-/* Schedule CSS - Change to CSS Grid later */
-.calendar-game{
-    display: inline-block;
-    width: 60%;
-    padding: 10px 0px;
-    position: relative;
-    box-sizing: border-box;
-    border-style: double;
+.header, .footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+    background-color: #648ca6;
 }
 
-.calendar-game .block-home {
-    float: left;
-    margin-right: -60px;
-    width: 50%;
-    line-height: 32px;
+.sidenav {
+    display: flex; /* Will be hidden on mobile */
+    flex-direction: column;
+    grid-area: sidenav;
+    background-color: #394263;
 }
 
-.calendar-game .block-home .team-title {
-    margin-right: 60px;
-    text-align: right;
-    font-size: 16px;
-}
-
-.calendar-game .match-info {
-    width: 80px;
-    text-align: center;
-    font-size: 1.8rem;
-    margin: -5px 15px;
-    box-sizing: border-box;
-    position: relative;
-    display: inline-block;
-}
-.calendar-game .block-away {
-    float: right;
-    margin-left: -60px;
-    width: 50%;
-    line-height: 32px;
-}
-.calendar-game .block-away .team-title {
-    margin-left: 60px;
-    font-size: 16px;
-}
-
-.team-container {
-    grid-template-columns: 40px 50px auto 50px 40px;
-    grid-template-rows: 25% 100px auto;
-}
-
-.teamList {
+.sidenav__list {
+    padding: 0;
+    margin-top: 85px;
     list-style-type: none;
-    padding: 10px;
-    display: inline-block;
-    border: 1px solid black;
+}
+
+.sidenav__list-item {
+    padding: 20px 20px 20px 40px;
+    color: #ddd;
+}
+
+.sidenav__list-item:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+}
+
+
+
+.home-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas:
+      "schedule stats"
+      "main main";
+    height: 100vh;
+}
+
+
+.calender-games {
+    grid-area: schedule;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    background-color: rgb(228, 227, 227);
+    justify-items: center;
+    grid-template-areas: 
+        "home date away";
+
+}
+
+.team-home {
+    grid-area: home;
+}
+.match-info {
+    grid-area: date;
+}
+.match-info {
+    grid-area: date;
+}
+
+.team-away {
+    grid-area: away;
 }
