@@ -7,14 +7,24 @@ async function getSchedule(){
         .sort({
             'provisionalKickoff.millis': -1
         })
-        .project({
-            'kickoffLabel': {
-                '$substr': ['$provisionalKickoff.label', 17, 5]
+        .addFields({
+            'date': {
+                '$toDate': '$provisionalKickoff.millis'
             },
+            'currentDate': '$$NOW'
+        })
+        .match({
+            '$expr': { '$gt': ['$date', '$currentDate'] }
+        })
+
+        .project({
+            'dateString': {'$dateToString': {'format':'%m/%d-%Y %H:%M', 'date':'$date'} },
             'teams': 1,
+            'currentDate': 1
 
 
         })
+        .sort({'dateString': 1})
         .limit(10)
     return data
 }

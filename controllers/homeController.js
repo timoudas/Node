@@ -13,6 +13,7 @@ const TeamPlayersServices = require('../services/TeamPlayersService')
  */
 homeController.index = async function (req, res) {
     res.locals.schedule = await ScheduleServices.getSchedule()
+    console.log(await ScheduleServices.getSchedule())
     res.render('home/home');
 }
 

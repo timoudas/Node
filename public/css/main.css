@@ -6,11 +6,11 @@
     display: grid;
     grid-template-columns: 240px 1fr;
     grid-template-rows: 50px 1fr 50px;
+    grid-auto-columns: minmax(min-content, max-content);
     grid-template-areas:
       "sidenav header"
       "sidenav main"
       "sidenav footer";
-    height: 100vh;
 }
   
   /* Give every child element its grid name */
@@ -26,7 +26,7 @@
 
 .main {
     grid-area: main;
-    background-color: #d0f7fa;
+    background-color: #a0d2f3;
 }
 
 .footer {
@@ -69,36 +69,39 @@
 
 .home-container {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: auto 1fr;
     grid-template-rows: 1fr 1fr;
     grid-template-areas:
       "schedule stats"
       "main main";
-    height: 100vh;
+    font-family: Sans-serif;
 }
 
 
 .calender-games {
-    grid-area: schedule;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    background-color: rgb(228, 227, 227);
+    grid-area: schedule;
+    grid-template-columns: auto 200px;
+    grid-auto-rows: minmax(min-content, max-content);
+    font-size: 18px;
+    color: #fff;
+    padding: 10px;
+  }
+  .calender-header {
+    grid-area: 1/1/2/3;
+    background-color: #00008b;
+  }
+  .match-time {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #67bdda;
+    padding-left: 5px;
+    padding-right: 10px;
+  }
+  .teams {
+    background-color: #0a1d2c;
+    padding-left: 10px;
     justify-items: center;
-    grid-template-areas: 
-        "home date away";
-
-}
-
-.team-home {
-    grid-area: home;
-}
-.match-info {
-    grid-area: date;
-}
-.match-info {
-    grid-area: date;
-}
-
-.team-away {
-    grid-area: away;
-}
+    padding-bottom: 5px;
+  }

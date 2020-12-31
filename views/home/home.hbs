@@ -1,18 +1,19 @@
 
 <div class='home-container'>
     <div class='calender-games'>
+        <div class="calender-header">
+            <span>Schedule</span>
+        </div>
         {{#each schedule}}
-            <div class='calendar-game'>
-                <div class='team-home'>
-                    <a href='#'>{{this.teams.0.team.shortName}}</a>
+            <div class="match-time">
+                <span>{{this.dateString}}</span>
+            </div>
+            <div class="teams">
+                <div class="home">
+                    {{this.teams.0.team.shortName}}
                 </div>
-
-                <div class='match-info'>
-                    {{this.kickoffLabel}}
-                </div>
-
-                <div class='team-away'>
-                    <a href='#'>{{this.teams.1.team.shortName}}</a>
+                <div class="away">
+                    {{this.teams.1.team.shortName}}
                 </div>
             </div>
         {{/each}}
