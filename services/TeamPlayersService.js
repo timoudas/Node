@@ -135,7 +135,64 @@ async function getKeyPassPlayers(){
 
     return data
 }
-getKeyPassPlayers()
+
+async function getBestShotPlayers(){
+    var season = await utils.latestSeasonId()
+    var data = await PlayerFixtureStatsModel.aggregate()
+    .match({
+        'seasonId': season
+    })
+    .group({
+        '_id': {
+            'id': '$id', 
+            'season': '$seasonId', 
+        },
+        'goals': {'$sum': '$goals'},
+        'shotOffTarget': {'$sum': '$shot_off_target'},
+        'hitWoodWord': {'$sum': '$hit_woodwork'},
+        'name': {'$first': '$name'},
+        'totalShots': {'$sum': '$total_scoring_att' },
+        'totalPlaytime': {'$sum': '$mins_played'},
+    })
+    .sort({
+        'totalShots': -1
+    })
+    .limit(20)
+    .lookup({
+        'from': 'team_squads',
+        'let': {'id': '$_id.id', 'seasonId': '$_id.season'},
+        'pipeline': [
+            { '$match': {"$expr": { '$eq': [ "$seasonId", "$$seasonId" ] } } },
+            { "$unwind": "$players" },
+            { "$match": { "$expr": { "$eq": ["$players.p_id", "$$id"] } } },
+         ],
+        'as': 'player_stats'
+    })
+    .unwind(
+        'player_stats'
+    )
+    .project({
+        'totalPlaytime': 1,
+        'totalShots': 1,
+        'goals': 1,
+        'shotOffTarget': 1,
+        'shotsOnTarget': '#TODO write query',
+        'hitWoodWord': 1,
+        'name': 1,
+        'seasonId': 1,
+        'teamId': '$player_stats.teamId',
+        'teamName': '$player_stats.teamName',
+        'appearances': '$player_stats.players.appearances',
+        'position': '$player_stats.players.position',
+        'id': '$_id.id',
+        'seasonId': '$_id.season',
+        'averageShotsPerGame': {'$round': [ {'$divide':['$totalShots', '$player_stats.players.appearances'] }, 1] },
+        'averageShotsOnTarget':
+        '_id': 0
+    })
+    console.log(data)
+}
+getBestShotPlayers()
 
 module.exports = {
     getKeyPassPlayers,
@@ -143,69 +200,3 @@ module.exports = {
     getTeams,
 }
 
-// async function getKeyPassPlayers(){
-//     var season = await utils.latestSeasonId()
-//     var data = await PlayerFixtureStatsModel.aggregate()
-//     .match({
-//         'seasonId': season
-//     })
-//     .group({
-//         '_id': {
-//             'id': '$id', 
-//             'season': '$seasonId', 
-//         },
-//         'total_pass': {'$sum': '$total_pass'},
-//         'total_mins_played': {'$sum': '$mins_played'},
-//         'name': {'$first': '$name'},
-//     })
-//     .project({
-//         'totalPlaytime': '$total_mins_played',
-//         'total_pass': 1,
-//         'averagePasses': {'$cond': [ {'$eq':['$total_mins_played', 0]} , 0,
-//             {'$multiply':[90, {"$divide":["$total_pass", "$total_mins_played"]}]} ]
-//         },
-//         'name': '$name',
-//         'id': '$_id.id',
-//         'seasonId': '$_id.season',
-//         '_id': 0
-//     })
-//     .sort({
-//         'total_pass': -1
-//     })
-//     .limit(20)
-//     .lookup({
-//         'from': 'player_stats',
-//         'let': {'id': '$id', 'seasonId': '$seasonId'},
-//         'pipeline': [
-//             { '$match':
-//                { '$expr':
-//                   { '$and':
-//                      [
-//                        { '$eq': [ "$seasonId", "$$seasonId" ] },
-//                        { '$eq': [ "$p_id", "$$id" ] }
-//                      ]
-//                   }
-//                }
-//             },
-//          ],
-//         'as': 'player_stats'
-//     })
-//     .unwind(
-//         'player_stats'
-//     )
-//     .project({
-//         'id': 1,
-//         'totalPlaytime': 1,
-//         'averagePasses': 1,
-//         'name': 1,
-//         'seasonId': 1,
-//         'appearances': '$player_stats.appearances',
-//         'averagePlaytime': {'$divide': ['$totalPlaytime', '$player_stats.appearances']},
-//         '_id': 0
-//     })
-//     .sort({
-//         'averagePasses': -1
-//     })
-
-//     return data
-// }
