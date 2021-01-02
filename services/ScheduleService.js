@@ -18,14 +18,14 @@ async function getSchedule(){
         })
 
         .project({
-            'dateString': {'$dateToString': {'format':'%m/%d-%Y %H:%M', 'date':'$date'} },
+            'dateString': {'$dateToString': {'format':'%d/%m %H:%M', 'date':'$date'} },
             'teams': 1,
             'currentDate': 1
 
 
         })
         .sort({'dateString': 1})
-        .limit(10)
+        .limit(7)
     return data
 }
 

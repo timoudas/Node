@@ -18,4 +18,52 @@
             </div>
         {{/each}}
     </div>
+    <div class="main-container">
+        <div class="filter-container">
+            <input type="text" id="filter0" placeholder="Filter By Name">
+            <input type="text" id="filter1" placeholder="Filter By Club">
+            <input type="text" id="filter2" placeholder="Filter By Position">
+            <div class="dropdown">
+                <button class="dropbtn">Dropdown</button>
+                <div class="dropdown-content">
+                    <button class="stats">Passes</button>
+                    <button class="stats">Shots</button>
+                    <button class="stats">Tackles</button>
+                </div>
+            </div>
+        </div>
+        <table id="filter" class="table">
+            <thead>
+                <tr>
+                    <th>Player</th>
+                    <th>Club</th>
+                    <th>Position</th>
+                    <th>AvgShots</th>
+                    <th>AvgOnTarget</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each shots}}
+                    <tr>
+                        <td>{{this.name}}</td>
+                        <td>{{this.teamName}}</td>
+                        <td>{{this.position}}</td>
+                        <td>{{this.averageShotsPerGame}}</td>
+                        <td>{{this.averageShotsOnTarget}}</td>
+                    </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+
+    {{!-- <div class="stats-container">
+        <div class="teams-drop-down">
+            <button class="dropdwnbtn">Dropdown</button>
+            <div class="dropdwncontent">
+                {{#each teams}}
+                    <a href="#">{{this.teamName}}</a>
+                {{/each}}
+            </div>
+        </div>
+    </div> --}}
 </div>

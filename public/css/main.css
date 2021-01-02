@@ -1,10 +1,12 @@
 
 /* Simple dashboard grid CSS */
 
+
+
 /* Assign grid instructions to our parent grid container */
 .grid-container {
     display: grid;
-    grid-template-columns: 240px 1fr;
+    grid-template-columns: 200px 1fr;
     grid-template-rows: 50px 1fr 50px;
     grid-auto-columns: minmax(min-content, max-content);
     grid-template-areas:
@@ -14,24 +16,23 @@
 }
   
   /* Give every child element its grid name */
-.header {
-    grid-area: header;
-    background-color: #648ca6;
-}
+
   
 .sidenav {
     grid-area: sidenav;
-    background-color: #394263;
+    background-color: #1f2833;
 }
 
 .main {
     grid-area: main;
-    background-color: #a0d2f3;
+    background-color: #1f2833;
 }
 
 .footer {
     grid-area: footer;
-    background-color: #648ca6;
+}
+.header {
+  grid-area: header;
 }
 
 .header, .footer {
@@ -39,7 +40,8 @@
     align-items: center;
     justify-content: space-between;
     padding: 0 16px;
-    background-color: #648ca6;
+    background-color: #161b21;
+    color: #EDF5E1;
 }
 
 .sidenav {
@@ -57,7 +59,10 @@
 
 .sidenav__list-item {
     padding: 20px 20px 20px 40px;
-    color: #ddd;
+}
+
+.sidenav__list-item a {
+  color: #EDF5E1;
 }
 
 .sidenav__list-item:hover {
@@ -66,42 +71,145 @@
 }
 
 
-
+/* Main content Area */
 .home-container {
     display: grid;
-    grid-template-columns: auto 1fr;
-    grid-template-rows: 1fr 1fr;
-    grid-template-areas:
-      "schedule stats"
-      "main main";
+    grid-area: main;
+    grid-template-columns: 1fr 2fr;
+    grid-template-rows: auto 1fr 1fr;
     font-family: Sans-serif;
+    grid-gap: 73px
 }
 
-
+/* Calender Componets */
 .calender-games {
     display: grid;
-    grid-area: schedule;
     grid-template-columns: auto 200px;
-    grid-auto-rows: minmax(min-content, max-content);
     font-size: 18px;
-    color: #fff;
-    padding: 10px;
+    color: #c5c6c7;
+    margin-left: 27px;
+    margin-top: 27px;
+    box-shadow:
+    inset 0 -3em 3em rgba(0,0,0,0.1),
+          0.4em 0.6em 1em rgba(0,0,0,0.3);
   }
   .calender-header {
     grid-area: 1/1/2/3;
-    background-color: #00008b;
+    background-color: #161b21;
+    color: #66fcf1;
+    font-size: 20px;
   }
+
   .match-time {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #67bdda;
+    color: #66fcf1;
+    background-color: #161b21;
     padding-left: 5px;
     padding-right: 10px;
   }
   .teams {
-    background-color: #0a1d2c;
+    background-color: #1f2833;
     padding-left: 10px;
     justify-items: center;
-    padding-bottom: 5px;
   }
+
+/* Home-Page Main Area */
+.main-container{
+  margin-right: 27px;
+  background-color: #1f2833;
+  color: #c5c6c7;
+  margin-top: 27px;
+  box-shadow:
+  inset 0 -3em 3em rgba(0,0,0,0.1),
+        0.4em 0.6em 1em rgba(0,0,0,0.3);
+  overflow: auto;
+  max-height: 500px;
+}
+
+.main-container input, .main-container .filter-container button {
+    background-color: #1f2833;
+    color: #b4b6b8;
+    border: none;
+    outline: none;
+}
+
+.main-container .filter-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+
+}
+
+/* Filter DropDown */
+/* Dropdown Button */
+.dropbtn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content button {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content button:hover {background-color: #ddd;}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {display: block;}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {background-color: #3e8e41;}
+
+.main-container .table thead{
+  color: #66fcf1;
+}
+.main-container .table thead th {
+  background-color: #1f2833;
+  border: #1f2833;
+  position: sticky;
+  top: 0;
+}
+
+.main-container .table {
+  background-color: #1f2833;
+  color: #c5c6c7;
+}
+
+.stats-container{
+  background-color: gray;
+  margin-top: 27px;
+  margin-right: 27px;
+  box-shadow:
+  inset 0 -3em 3em rgba(0,0,0,0.1),
+        0.4em 0.6em 1em rgba(0,0,0,0.3);
+}
+
+
+
+
+
+/* Home-Page Stats Area */

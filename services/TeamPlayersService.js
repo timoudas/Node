@@ -157,7 +157,7 @@ async function getBestShotPlayers(){
     .sort({
         'totalShots': -1
     })
-    .limit(20)
+    .limit(50)
     .lookup({
         'from': 'team_squads',
         'let': {'id': '$_id.id', 'seasonId': '$_id.season'},
@@ -176,26 +176,32 @@ async function getBestShotPlayers(){
         'totalShots': 1,
         'goals': 1,
         'shotOffTarget': 1,
-        'shotsOnTarget': '#TODO write query',
+        'shotsOnTarget': {'$subtract': ['$totalShots','$shotOffTarget' ] },
         'hitWoodWord': 1,
         'name': 1,
         'seasonId': 1,
         'teamId': '$player_stats.teamId',
-        'teamName': '$player_stats.teamName',
+        'teamName': '$player_stats.teamShortName',
         'appearances': '$player_stats.players.appearances',
         'position': '$player_stats.players.position',
         'id': '$_id.id',
         'seasonId': '$_id.season',
         'averageShotsPerGame': {'$round': [ {'$divide':['$totalShots', '$player_stats.players.appearances'] }, 1] },
-        'averageShotsOnTarget':
+        'averageShotsOnTarget': {'$round': [ {'$divide': [ {'$subtract': ['$totalShots','$shotOffTarget' ] } ,'$player_stats.players.appearances'] }, 1] },
         '_id': 0
     })
-    console.log(data)
+    .sort({
+        'averageShotsPerGame': -1,
+        'averageShotsOnTarget': -1,
+        'teamId': 1
+    })
+    return data
 }
 getBestShotPlayers()
 
 module.exports = {
     getKeyPassPlayers,
+    getBestShotPlayers,
     getPlayers,
     getTeams,
 }
