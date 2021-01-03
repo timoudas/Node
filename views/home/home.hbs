@@ -26,9 +26,9 @@
             <div class="dropdown">
                 <button class="dropbtn">Dropdown</button>
                 <div class="dropdown-content">
-                    <button class="stats">Passes</button>
-                    <button class="stats">Shots</button>
-                    <button class="stats">Tackles</button>
+                    <button class="stats-item" value="1">Passes</button>
+                    <button class="stats-item" value="2">Shots</button>
+                    <button class="stats-item" value="3">Tackles</button>
                 </div>
             </div>
         </div>
@@ -38,11 +38,11 @@
                     <th>Player</th>
                     <th>Club</th>
                     <th>Position</th>
-                    <th>AvgShots</th>
-                    <th>AvgOnTarget</th>
+                    <th id='stats-placehld'>AvgShots</th>
+                    <th id="stats-placehld1">AvgOnTarget</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="playerStatsAvg">
                 {{#each shots}}
                     <tr>
                         <td>{{this.name}}</td>

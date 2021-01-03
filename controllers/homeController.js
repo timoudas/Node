@@ -19,4 +19,19 @@ homeController.index = async function (req, res) {
     res.render('home/home');
 }
 
+homeController.filterHandler = async function (req,res){
+    var queryval = req.query.statsType
+    if (queryval == 1) {
+        var passes = await TeamPlayersServices.getKeyPassPlayers()
+        res.json(passes)
+        res.end()
+    } else if(queryval == 2){
+        var shots = await TeamPlayersServices.getBestShotPlayers()
+        res.json(shots)
+        res.end()
+    } else {
+        console.log('hello')
+    }
+}
+
 module.exports = homeController

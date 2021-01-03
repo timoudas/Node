@@ -29,7 +29,7 @@ async function getTeams(){
     .sort({
         'teamName': 1
     })
-    console.log(data)
+
     return data
 }
 
@@ -92,9 +92,11 @@ async function getKeyPassPlayers(){
     .project({
         'totalPlaytime': '$total_mins_played',
         'total_pass': 1,
-        'averagePasses': {'$cond': [ {'$eq':['$total_mins_played', 0]} , 0,
-            {'$multiply':[90, {"$divide":["$total_pass", "$total_mins_played"]}]} ]
-        },
+        'averagePasses': {'$round': [ { '$cond': [ 
+            { '$eq':[ '$total_mins_played', 0 ] } , 0,
+            { '$multiply':[ 90, { "$divide":[ "$total_pass", "$total_mins_played" ] } ] } 
+            ]
+        }, 1] },
         'name': '$name',
         'id': '$_id.id',
         'seasonId': '$_id.season',
@@ -103,7 +105,7 @@ async function getKeyPassPlayers(){
     .sort({
         'total_pass': -1
     })
-    .limit(20)
+    .limit(50)
     .lookup({
         'from': 'team_squads',
         'let': {'id': '$id', 'seasonId': '$seasonId'},
@@ -120,7 +122,6 @@ async function getKeyPassPlayers(){
     .project({
         'totalPlaytime': 1,
         'total_pass': 1,
-        'averagePasses': 1,
         'name': 1,
         'id': 1,
         'seasonId': 1,
@@ -128,8 +129,14 @@ async function getKeyPassPlayers(){
         'teamName': '$player_stats.teamName',
         'appearances': '$player_stats.players.appearances',
         'position': '$player_stats.players.position',
+        'averagePasses': 1,
         'averagePlaytime': {'$round': [ {'$divide':['$totalPlaytime', '$player_stats.players.appearances'] }, 1] },
         '_id': 0
+    })
+    .sort({
+        'averagePasses': -1,
+        'averagePlaytime': -1,
+        'teamId': 1
     })
 
 
@@ -197,7 +204,6 @@ async function getBestShotPlayers(){
     })
     return data
 }
-getBestShotPlayers()
 
 module.exports = {
     getKeyPassPlayers,

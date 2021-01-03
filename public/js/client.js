@@ -19,9 +19,65 @@ $('#updateDataButton').bind('click', function(event){
         
     })
 });
+//Click eventlistner for home-page player stats
+const homeTable = document.querySelectorAll(".stats-item");
+homeTable.forEach(element => {
+    element.addEventListener('click', homeTableToggle)
+})
+function homeTableToggle(event){
+    var queryVal = event.target.value
+    console.log(queryVal)
+    if (queryVal == 1){
+        $.ajax({
+            type: 'POST',
+            url: '/?' + $.param({ statsType: queryVal}),
+            success: (newVals) => {   
+                $('#stats-placehld').text("AvgPlayTime")
+                $('#stats-placehld1').text("AvgPasses")
+                console.log($('#stats-placehld1').textContent)
+                $('#playerStatsAvg').empty();
+                for(let i = 0; i < 50; i++) {
+                    let filteredTr = newVals[i]
+                    let newHtml = `<tr>
+                    <td>${filteredTr.name}</td>
+                    <td>${filteredTr.teamName}</td>
+                    <td>${filteredTr.position}</td>
+                    <td>${filteredTr.averagePlaytime}</td>
+                    <td>${filteredTr.averagePasses}</td>
+                    </tr>`
+    
+                    $('#playerStatsAvg').append(newHtml)
+                }
+            }
+        })
+    } else if (queryVal == 2){
+        $.ajax({
+            type: 'POST',
+            url: '/?' + $.param({ statsType: queryVal}),
+            success: (newVals) => {     
+                $('#stats-placehld').text("AvgShots")
+                $('#stats-placehld1').text("AvgOnTarget")  
+                $('#playerStatsAvg').empty();
+                for(let i = 0; i < 50; i++) {
+                    let filteredTr = newVals[i]
+                    let newHtml = `<tr>
+                    <td>${filteredTr.name}</td>
+                    <td>${filteredTr.teamName}</td>
+                    <td>${filteredTr.position}</td>
+                    <td>${filteredTr.averageShotsPerGame}</td>
+                    <td>${filteredTr.averageShotsOnTarget}</td>
+                    </tr>`
+    
+                    $('#playerStatsAvg').append(newHtml)
+                }
+            }
+        })
+    }
+
+}
 
 
-//Click eventlistner for all filters
+//Click eventlistner for all table-filters
 const selection = document.querySelectorAll(".dropdown-item");
 selection.forEach(element => {
    element.addEventListener('click', pickSelection)
