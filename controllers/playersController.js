@@ -13,7 +13,7 @@ const TeamPlayersServices = require('../services/TeamPlayersService')
  */
 playerController.index = async function (req, res) {
     res.locals.teams = await TeamPlayersServices.getTeams()
-    res.render('players/index');
+    res.render('players/playerindex');
 }
 
 module.exports = playerController

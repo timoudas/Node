@@ -1,7 +1,17 @@
 const { TeamSquadsModel } = require("../models/TeamSquads");
 const { PlayerFixtureStatsModel } = require("../models/FixturePlayer");
+const { PlayerStatsModel } = require("../models/PlayerStats");
 const utils = require('../services/utils.js')
 
+module.exports = {
+    getKeyPassPlayers,
+    getBestShotPlayers,
+    getPlayers,
+    getTeams,
+    getBestDef,
+    getBestMid,
+    getBestAtt,
+}
 
 /**
  * 
@@ -126,7 +136,7 @@ async function getKeyPassPlayers(){
         'id': 1,
         'seasonId': 1,
         'teamId': '$player_stats.teamId',
-        'teamName': '$player_stats.teamName',
+        'teamName': '$player_stats.teamShortName',
         'appearances': '$player_stats.players.appearances',
         'position': '$player_stats.players.position',
         'averagePasses': 1,
@@ -205,10 +215,49 @@ async function getBestShotPlayers(){
     return data
 }
 
-module.exports = {
-    getKeyPassPlayers,
-    getBestShotPlayers,
-    getPlayers,
-    getTeams,
+async function getBestDef(){
+    var season = await utils.latestSeasonId()
+    var data = await PlayerStatsModel.aggregate()
+    .match({
+        'position': 'D',
+        'seasonId': season
+    })
+    .lookup({
+        'from': 'team_squads',
+        'let': {'id': '$id', 'seasonId': '$seasonId'},
+        'pipeline': [
+            { '$match': {"$expr": { '$eq': [ "$seasonId", "$$seasonId" ] } } },
+            { "$unwind": "$players" },
+            { "$match": { "$expr": { "$eq": ["$players.p_id", "$$id"] } } },
+         ],
+        'as': 'playerInfo'
+    })
+    .unwind(
+        'playerInfo'
+    )
+    .sort({
+        'blocked_scoring_att': -1,
+        'error_lead_to_goal': 1,
+        'total_tackles': -1,
+        'mins_played': -1,
+        'effective_clearance': -1,
+    })
+    .project({
+        '_id': 0,
+        'name': 1,
+        'teamName': '$playerInfo.teamShortName'
+    })
+    .limit(20)
+    console.log(data)
+    return(data)
+}
+getBestDef()
+
+async function getBestMid(){
+    
+}
+
+async function getBestAtt(){
+    
 }
 

@@ -5,6 +5,8 @@ var bodyParser = require('body-parser');
 const { join } = require('path')
 const app = express();
 const keys = require('./configs/keys')
+const reload = require('reload')
+const http = require('http')
 
 
 // Database setup
@@ -21,6 +23,7 @@ app.engine('hbs', hbs({
 }));
 
 app.set('view engine', 'hbs');
+app.set('port', process.env.PORT || 3000)
 app.use(express.static(__dirname + '/public'));
 
 // Body Parser
@@ -32,9 +35,20 @@ app.use('/', require('./routes/homeRouter'))
 app.use('/table', require('./routes/tableRouter'))
 app.use('/players', require('./routes/playerRouter'))
 
-app.use('*', (req, res, next) => {
-    res.send('Oops! 404: Cant find the requested resource... Sorry')
-  })
+// app.use('*', (req, res, next) => {
+//     res.send('Oops! 404: Cant find the requested resource... Sorry')
+//   })
 
-// Server setup
-app.listen(3000, () => console.log('Server running'))
+var server = http.createServer(app)
+
+// Reload code here
+reload(app).then(function (reloadReturned) {
+  // reloadReturned is documented in the returns API in the README
+  
+  // Reload started, start web server
+  server.listen(app.get('port'), function () {
+    console.log('Web server listening on port ' + app.get('port'))
+  })
+}).catch(function (err) {
+  console.error('Reload could not start, could not start server/sample app', err)
+})

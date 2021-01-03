@@ -19,15 +19,17 @@ async function getSchedule(){
 
         .project({
             'dateString': {'$dateToString': {'format':'%d/%m %H:%M', 'date':'$date'} },
+            'date': 1,
             'teams': 1,
             'currentDate': 1
 
 
         })
-        .sort({'dateString': 1})
+        .sort({'date': 1})
         .limit(7)
     return data
 }
+getSchedule()
 
 module.exports = {
     getSchedule,
