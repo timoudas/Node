@@ -245,9 +245,10 @@ async function getBestDef(){
     .project({
         '_id': 0,
         'name': 1,
-        'teamName': '$playerInfo.teamShortName'
+        'teamName': '$playerInfo.teamShortName',
+        'id': 1,
     })
-    .limit(20)
+    .limit(15)
     console.log(data)
     return(data)
 }

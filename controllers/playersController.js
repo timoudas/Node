@@ -12,7 +12,7 @@ const TeamPlayersServices = require('../services/TeamPlayersService')
  * @param {object} res - Express response object.
  */
 playerController.index = async function (req, res) {
-    res.locals.teams = await TeamPlayersServices.getTeams()
+    res.locals.defenders = await TeamPlayersServices.getBestDef()
     res.render('players/playerindex');
 }
 
