@@ -11,7 +11,7 @@ $('#updateDataButton').bind('click', function(event){
     console.log(event.timeStamp)
     $.ajax({
         type: 'POST',
-        url: '/table/update_data',
+        url: '/table',
         success: () => {
             console.log('success')
             window.location = "/";

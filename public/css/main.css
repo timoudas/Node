@@ -135,6 +135,7 @@
     color: #b4b6b8;
     border: none;
     outline: none;
+    width: 190px;
 }
 
 .main-container .filter-container {
@@ -173,7 +174,7 @@
 }
 
 /* Change color of dropdown links on hover */
-.dropdown-content button:hover {background-color: #66fcf1;}
+.dropdown-content button:hover {background-color:rgb(150, 149, 149);}
 
 /* Show the dropdown menu on hover */
 .dropdown:hover .dropdown-content {display: block;}
