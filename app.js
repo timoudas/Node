@@ -7,6 +7,8 @@ const app = express();
 const keys = require('./configs/keys')
 const reload = require('reload')
 const http = require('http')
+var server = http.createServer(app)
+var io = require('socket.io')(server);
 
 
 // Database setup
@@ -25,6 +27,7 @@ app.engine('hbs', hbs({
 app.set('view engine', 'hbs');
 app.set('port', process.env.PORT || 3000)
 app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/node_modules'));  
 
 // Body Parser
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -39,12 +42,14 @@ app.use('/players', require('./routes/playerRouter'))
 //     res.send('Oops! 404: Cant find the requested resource... Sorry')
 //   })
 
-var server = http.createServer(app)
+
+io.on('connection', (socket) => {
+  console.log('WE HAVE LIFTOFF');
+});
 
 // Reload code here
 reload(app).then(function (reloadReturned) {
   // reloadReturned is documented in the returns API in the README
-  
   // Reload started, start web server
   server.listen(app.get('port'), function () {
     console.log('Web server listening on port ' + app.get('port'))

@@ -249,7 +249,6 @@ async function getBestDef(){
         'id': 1,
     })
     .limit(15)
-    console.log(data)
     return(data)
 }
 getBestDef()

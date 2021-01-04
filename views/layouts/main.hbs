@@ -33,5 +33,15 @@
     <script src="js/TableFilter.min.js" defer ></script>
     {{!-- live reloading --}}
     <script src="/reload/reload.js"></script> 
+    {{!-- Web-Socket --}}
+    <script src="/socket.io/socket.io.js"></script>
+    <script>  
+        var socket = io();
+            $('#spc-btn').click(function(){
+                content = $('#input').html();
+                socket.emit('click', content);
+
+            });
+    </script>
 </body>
 </html>
