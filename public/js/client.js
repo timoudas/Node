@@ -2,9 +2,11 @@
 
 // Get initial value from filters
 var seasonSelection = $('#seasonToggle').children(":first").val()
+console.log(seasonSelection)
 var typeSelection = $('#homeAwayToggle').children(":first").val()
+console.log(typeSelection)
 var MatchweekSelection = $('#homeAwayToggle').children(":first").val()
-var leagueTableUpdateTimeStamp = 0
+// var leagueTableUpdateTimeStamp = 0
 
 
 $('#updateDataButton').bind('click', function(event){

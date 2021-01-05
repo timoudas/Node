@@ -1,0 +1,34 @@
+
+ <div class='main-container'>
+     <div class="table-main">
+         <div class="filter-container">
+            <div class="dropdown">
+                <button class="dropbtn" id="seasonDropDownMenyButton">Filter By Season</button>
+                <div class="dropdown-content" id="seasonToggle">
+                    {{#each seasons}}
+                        <button class="dropdown-item" value={{this._id}}>{{this.SeasonLabel}}</button>
+                    {{/each}}
+                </div>
+            </div>
+            <div class="dropdown">
+                <button class="dropbtn" id="homeAwayDropDownMenyButton">Filter by Home or Away</button>
+                <div class="dropdown-content" id="homeAwayToggle">
+                    <button class="dropdown-item" value="overall">All Matches</button>
+                    <button class="dropdown-item" value="home">Home</button>
+                    <button class="dropdown-item" value="away">Away</button>
+                </div>
+            </div>
+         </div>
+         <table id="filter" class="table">
+            <thead>
+                {{> leagueTableHeader}}
+            </thead>
+            <tbody id='league-table-rows'>
+                    {{season}}
+                    {{#each result}}
+                        {{> leagueTableBody this}}
+                    {{/each}}
+            </tbody>
+         </table>
+     </div>
+</div>

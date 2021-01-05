@@ -251,7 +251,6 @@ async function getBestDef(){
     .limit(15)
     return(data)
 }
-getBestDef()
 
 async function getBestMid(){
     

@@ -46,6 +46,12 @@ app.use('/players', require('./routes/playerRouter'))
 io.on('connection', (socket) => {
   console.log('WE HAVE LIFTOFF');
 });
+io.on('connection', (socket) => {
+  socket.on('btn-press', (msg) => {
+    console.log('message from client: ' + msg);
+    io.emit('sending-back', "HELLO FROM SERVER");
+  });
+});
 
 // Reload code here
 reload(app).then(function (reloadReturned) {

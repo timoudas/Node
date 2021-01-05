@@ -37,11 +37,12 @@
     <script src="/socket.io/socket.io.js"></script>
     <script>  
         var socket = io();
-            $('#spc-btn').click(function(){
-                content = $('#input').html();
-                socket.emit('click', content);
-
-            });
+        $('.spc-btn').bind('click', function(event){
+            socket.emit('btn-press', event.timeStamp)
+        })
+        socket.on('sending-back', function(msg){
+            alert(msg)
+        })
     </script>
 </body>
 </html>

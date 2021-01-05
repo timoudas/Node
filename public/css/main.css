@@ -126,7 +126,7 @@
   background-color: #1f2833;
   color: #c5c6c7;
   margin-top: 27px;
-  overflow: auto;
+  overflow-y: scroll;
   max-height: 500px;
 }
 
@@ -135,12 +135,11 @@
     color: #b4b6b8;
     border: none;
     outline: none;
-    width: 190px;
 }
 
 .main-container .filter-container {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: auto auto auto auto;
   color: #b4b6b8;
 
 }

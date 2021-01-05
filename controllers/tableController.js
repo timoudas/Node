@@ -41,7 +41,7 @@ tableController.index = async function (req, res) {
     res.locals.result = table
     res.locals.matchweeks = matchweeks
     res.locals.seasons = seasons
-    res.render('table/index');
+    res.render('table/tableindex');
 }
 
 /**
@@ -54,7 +54,7 @@ tableController.index = async function (req, res) {
 tableController.updateData = async function(req, res){
     await LeagueStandingServices.updateTableData()
     console.log('Data updated')
-    res.redirect('table/index')
+    res.redirect('table/tableindex')
 }
 
 tableController.handleFilters = async function (req, res) {
