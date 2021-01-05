@@ -1,6 +1,10 @@
 
 /* Simple dashboard grid CSS */
-
+:root {
+  --main-color: #1f2833;
+  --header-color:#66fcf1;
+  --text-color: #EDF5E1;
+}
 
 /* Assign grid instructions to our parent grid container */
 .grid-container {
@@ -271,4 +275,25 @@
   grid-area: 6 / 1 / 7 / 2;
 }
 
+/* TEAMS PAGE */
+.teams-container {
+  display: grid;
+  margin-top: 20px;
+  grid-template-rows: 70px auto;
+  grid-gap: 20px;
+}
 
+.meny-bar {
+  grid-area: 1 / 1 / 2 / 2;
+  color: var(--header-color);
+  font-size: 24px;
+  display: grid;
+  grid-template-columns: max-content repeat(4, 140px);
+  align-items: center;
+}
+
+.meny-items {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

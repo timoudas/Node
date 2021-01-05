@@ -37,6 +37,7 @@ app.use(bodyParser.json())
 app.use('/', require('./routes/homeRouter'))
 app.use('/table', require('./routes/tableRouter'))
 app.use('/players', require('./routes/playerRouter'))
+app.use('/teams', require('./routes/teamRouter'))
 
 // app.use('*', (req, res, next) => {
 //     res.send('Oops! 404: Cant find the requested resource... Sorry')
