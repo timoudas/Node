@@ -290,6 +290,7 @@
   display: grid;
   grid-template-columns: max-content repeat(4, 140px);
   align-items: center;
+  margin-left: 27px;
 }
 
 .meny-items {

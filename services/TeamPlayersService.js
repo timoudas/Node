@@ -7,41 +7,12 @@ module.exports = {
     getKeyPassPlayers,
     getBestShotPlayers,
     getPlayers,
-    getTeams,
     getBestDef,
     getBestMid,
     getBestAtt,
 }
 
-/**
- * 
- * @param {string} seasonId - Id for a season
- * Returns an array of objects with teamIds
- * 
- */
-async function getTeams(){
-    var data = await TeamSquadsModel.aggregate()
-    .match({
-        'seasonId': await utils.latestSeasonId()
-    })
-    .group({
-        '_id':{
-        'teamId': '$teamId',
-        'teamName': '$teamName',
-        'teamAbbr': '$teamAbbr'
-        } 
-    })
-    .project({
-        'teamId': '$_id.teamId',
-        'teamName': '$_id.teamName',
-        '_id': 0
-    })
-    .sort({
-        'teamName': 1
-    })
 
-    return data
-}
 
 
 /**
