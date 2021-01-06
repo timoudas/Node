@@ -12,7 +12,15 @@ const utils = require('../services/utils.js')
  * @param {object} res - Express response object.
  */
 TeamsController.index = async function (req, res) {
-
+    try {
+        var seasons = await utils.getSeasons()
+        var teams = await teamsServices.getTeams()
+        console.log(season)
+    } catch (error) {
+        console.log(error)
+    }
+    res.locals.seasons = seasons
+    res.locals.teams = teams
     res.render('teams/teamsindex');
 }
 

@@ -15,10 +15,11 @@ module.exports = {
  * Returns an array of objects with teamIds
  * 
  */
-async function getTeams(){
+async function getTeams(season){
+    var season = parseInt(season)
     var data = await TeamSquadsModel.aggregate()
     .match({
-        'seasonId': await utils.latestSeasonId()
+        'seasonId': season
     })
     .group({
         '_id':{
@@ -45,11 +46,9 @@ async function getTeamProgress(teamId){
         'seasonId': await utils.latestSeasonId(),
         'team_id': teamId
     })
-    console.log(data)
     return data
 }
 
-getTeamProgress(1)
 
 
 async function getTeamForm(teamId){

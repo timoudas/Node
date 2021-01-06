@@ -8,6 +8,7 @@ const keys = require('./configs/keys')
 const reload = require('reload')
 const http = require('http')
 var server = http.createServer(app)
+var sass = require('sass')
 var io = require('socket.io')(server);
 
 
@@ -26,6 +27,13 @@ app.engine('hbs', hbs({
 
 app.set('view engine', 'hbs');
 app.set('port', process.env.PORT || 3000)
+app.use(
+  sass.middleware({
+      src: __dirname + '/sass', //where the sass files are 
+      dest: __dirname + '/public/css', //where css should go
+      debug: true // obvious
+  })
+);
 app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname + '/node_modules'));  
 

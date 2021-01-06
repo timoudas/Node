@@ -40,7 +40,25 @@ async function latestSeasonLabel() {
     return seasonId;
 }
 
+async function getSeasons() {
+    var data = await LeagueStandingsModel.aggregate()
+    .group({
+        '_id': {'seasonId': '$seasonId', 'seasonLabel': '$seasonLabel'}
+    })
+    .project({
+        'seasonId': '$_id.seasonId',
+        'seasonLabel': '$_id.seasonLabel',
+        '_id': 0
+    })
+    .sort({
+        'seasonLabel': -1
+    })
+    return data
+}
+
+
 module.exports = {
     latestSeasonId,
     latestSeasonLabel,
+    getSeasons,
 }
