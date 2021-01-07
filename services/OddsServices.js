@@ -20,27 +20,19 @@ async function reqOdds(market){
         apiKey: keys.OddsApi};
         const response = await axios('https://api.the-odds-api.com/v3/odds/', {
             params: propertiesObj
-        }).then(response => {
-
-            console.log(
-                `Successfully got ${response.data.data.length} sports.`,
-                `Here's the first sport:`
-            )
-        
-            return response.data.data.slice(0, 7)
-            
         })
-        .catch(error => {
-            console.log('Error status', error.response.status)
-            console.log(error.response.data)
-        })
+        return response.data
     }
 
 
 async function getOdds(market){
     const data = await reqOdds(market)
-    console.log(data)
+    let odds = []
+    for (var i=0; i<8; i++){
+        console.log(data[i])
+        odds[i] = data[i]
+    }
+    console.log(odds)
 }
 
-const hello = await getOdds('h2h')
-console.log(hello)
+getOdds()
