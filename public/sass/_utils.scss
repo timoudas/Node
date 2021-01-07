@@ -16,6 +16,7 @@ inset 0 -3em 3em rgba(0,0,0,0.1),
 /* DROPDOWN BUTTON CSS */
 .dropbtn {
     font-size: 16px;
+    padding: 16px 12px;
 }
 
 /* The container <div> - needed to position the dropdown content */
@@ -32,9 +33,38 @@ inset 0 -3em 3em rgba(0,0,0,0.1),
     z-index: 1;
     button {
         padding: 12px 16px;
+        width: 100%;
         text-decoration: none;
         display: block;
-        width:100% !important;
         &:hover {background-color:rgb(150, 149, 149) !important;}
     }
+}
+
+  
+.filter-container {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+color: $text-color;
+    input, button {
+        background-color: $body-color;
+        color: #b4b6b8;
+        border: none;
+        outline: none;
+    }
+}
+
+.table thead{
+  color: #66fcf1;
+}
+
+.table thead th {
+  background-color: #1f2833;
+  border: #1f2833;
+  position: sticky;
+  top: 0;
+}
+
+.table {
+  background-color: #1f2833;
+  color: #c5c6c7;
 }

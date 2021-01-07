@@ -11,7 +11,7 @@
 /* Calender game component */
 .calender-games {
     display: grid;
-    grid-template-columns: auto 200px;
+    grid-template-columns: max-content auto;
     font-size: 18px;
     color: $text-color;
     margin-left: 27px;
@@ -31,7 +31,7 @@
 /* Calender game-time component */
 .match-time {
     display: flex;
-    justify-content: center;
+    justify-content: right;
     align-items: center;
     color: $header-color;
     background-color: $body-color;
@@ -48,24 +48,10 @@
 /* Home-Page Main Area */
 #player-avg-home {
     margin-right: 27px;
-    background-color: $body-color;
     color: $text-color;
     margin-top: 27px;
     overflow-y: scroll;
     max-height: 500px;
+    box-shadow: $box-shadow;
   }
   
-#player-avg-home input, #player-avg-home button {
-    background-color: $body-color;
-    color: #b4b6b8;
-    border: none;
-    outline: none;
-    padding: 16px;
-}
-  
-#player-avg-home .filter-container {
-display: grid;
-grid-template-columns: auto auto auto auto;
-color: $text-color;
-
-}

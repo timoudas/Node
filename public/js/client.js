@@ -1,10 +1,9 @@
 // Using .html in jQuery big NO NO: https://medium.com/@jenlindner22/the-risk-of-innerhtml-3981253fe217, switched to .text
 
+
 // Get initial value from filters
 var seasonSelection = $('#seasonToggle').children(":first").val()
-console.log(seasonSelection)
 var typeSelection = $('#homeAwayToggle').children(":first").val()
-console.log(typeSelection)
 var MatchweekSelection = $('#homeAwayToggle').children(":first").val()
 // var leagueTableUpdateTimeStamp = 0
 

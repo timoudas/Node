@@ -1,0 +1,10 @@
+#tablepage-container {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    margin-left: 27px;
+    margin-top: 27px;
+}
+
+#league-standing-filter {
+    padding: 12px 16px;
+}

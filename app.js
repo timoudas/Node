@@ -27,7 +27,6 @@ app.engine('hbs', hbs({
 
 app.set('view engine', 'hbs');
 app.set('port', process.env.PORT || 3000)
-console.log(__dirname + '/public/sass')
 
 app.use(
   sassMiddleware({
@@ -49,10 +48,6 @@ app.use('/', require('./routes/homeRouter'))
 app.use('/table', require('./routes/tableRouter'))
 app.use('/players', require('./routes/playerRouter'))
 app.use('/teams', require('./routes/teamRouter'))
-
-// app.use('*', (req, res, next) => {
-//     res.send('Oops! 404: Cant find the requested resource... Sorry')
-//   })
 
 
 io.on('connection', (socket) => {

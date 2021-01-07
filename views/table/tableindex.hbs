@@ -1,7 +1,7 @@
 
- <div class='main-container'>
+ <div class='main-container' id="tablepage-container">
      <div class="table-main">
-         <div class="filter-container">
+         <div class="filter-container" id="league-standing-filter">
             <div class="dropdown">
                 <button class="dropbtn" id="seasonDropDownMenyButton">Filter By Season</button>
                 <div class="dropdown-content" id="seasonToggle">
@@ -19,7 +19,7 @@
                 </div>
             </div>
          </div>
-         <table id="filter" class="table">
+         <table class="table">
             <thead>
                 {{> leagueTableHeader}}
             </thead>

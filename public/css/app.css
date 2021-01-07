@@ -3,7 +3,8 @@
 /* Components */
 /* DROPDOWN BUTTON CSS */
 .dropbtn {
-  font-size: 16px; }
+  font-size: 16px;
+  padding: 16px 12px; }
 
 /* The container <div> - needed to position the dropdown content */
 .dropdown {
@@ -20,11 +21,34 @@
   z-index: 1; }
   .dropdown-content button {
     padding: 12px 16px;
+    width: 100%;
     text-decoration: none;
-    display: block;
-    width: 100% !important; }
+    display: block; }
     .dropdown-content button:hover {
       background-color: #969595 !important; }
+
+.filter-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  color: #c5c6c7; }
+  .filter-container input, .filter-container button {
+    background-color: #1f2833;
+    color: #b4b6b8;
+    border: none;
+    outline: none; }
+
+.table thead {
+  color: #66fcf1; }
+
+.table thead th {
+  background-color: #1f2833;
+  border: #1f2833;
+  position: sticky;
+  top: 0; }
+
+.table {
+  background-color: #1f2833;
+  color: #c5c6c7; }
 
 /* Main content Area */
 .home-container {
@@ -37,7 +61,7 @@
 /* Calender game component */
 .calender-games {
   display: grid;
-  grid-template-columns: auto 200px;
+  grid-template-columns: max-content auto;
   font-size: 18px;
   color: #c5c6c7;
   margin-left: 27px;
@@ -54,7 +78,7 @@
 /* Calender game-time component */
 .match-time {
   display: flex;
-  justify-content: center;
+  justify-content: right;
   align-items: center;
   color: #66fcf1;
   background-color: #1f2833;
@@ -69,23 +93,20 @@
 /* Home-Page Main Area */
 #player-avg-home {
   margin-right: 27px;
-  background-color: #1f2833;
   color: #c5c6c7;
   margin-top: 27px;
   overflow-y: scroll;
-  max-height: 500px; }
+  max-height: 500px;
+  box-shadow: inset 0 -3em 3em rgba(0, 0, 0, 0.1), 0.4em 0.6em 1em rgba(0, 0, 0, 0.3); }
 
-#player-avg-home input, #player-avg-home button {
-  background-color: #1f2833;
-  color: #b4b6b8;
-  border: none;
-  outline: none;
-  padding: 16px; }
-
-#player-avg-home .filter-container {
+#tablepage-container {
   display: grid;
-  grid-template-columns: auto auto auto auto;
-  color: #c5c6c7; }
+  grid-template-columns: auto 1fr;
+  margin-left: 27px;
+  margin-top: 27px; }
+
+#league-standing-filter {
+  padding: 12px 16px; }
 
 /* Assign grid instructions to our parent grid container */
 .grid-container {
