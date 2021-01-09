@@ -28,11 +28,9 @@ async function reqOdds(market){
 async function getOdds(market){
     const data = await reqOdds(market)
     let odds = []
-    for (var i=0; i<8; i++){
-        console.log(data[i])
-        odds[i] = data[i]
+    for (var i=0; i<7; i++){
+        odds[i] = data.data[i]
     }
-    console.log(odds)
+    return odds
 }
 
-getOdds()

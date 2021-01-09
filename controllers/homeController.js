@@ -13,6 +13,7 @@ const OddsServices = require('../services/OddsServices')
  * @param {object} res - Express response object.
  */
 homeController.index = async function (req, res) {
+    // res.locals.odds = await OddsServices.getOdds()
     res.locals.schedule = await ScheduleServices.getSchedule()
     res.locals.passes = await TeamPlayersServices.getKeyPassPlayers()
     res.locals.shots = await TeamPlayersServices.getBestShotPlayers()

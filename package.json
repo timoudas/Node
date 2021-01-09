@@ -7,7 +7,7 @@
     "start": "nodemon app.js"
   },
   "nodemonConfig": {
-    "ext": "js, hbs, css, json"
+    "ext": "js, hbs, scss"
   },
   "author": "",
   "license": "ISC",

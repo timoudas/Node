@@ -10,10 +10,10 @@ const { spawn } = require('child_process');
  * Gets league table from db
  * @param {string} SeasonId - Id for specific season
 */
-async function updateTableData(){
-    const pyProg = await spawn('python', ['./../premier_league_api/cli_stats/subprocess_cli.py', '-u', '-l', 'en_pr']);
+function updateTableData(){
+    const pyProg = spawn('python', ['./../premier_league_api/cli_stats/subprocess_cli.py', '-u', '-l', 'en_pr']);
     pyProg.stdout.on('data', function(data) {
-    console.log(data.toString());
+    console.log('Update completed');
     })
 }
 

@@ -1,8 +1,28 @@
 const { LeagueStandingsModel } = require("../models/LeagueStanding");
+const { spawn } = require('child_process');
+
+module.exports = {
+    latestSeasonId,
+    latestSeasonLabel,
+    getSeasons,
+    updateData,
+}
 
 /**
  * Gets latest season from db
  */
+/** 
+ * Updates all the data
+ * @param {string} SeasonId - Id for specific season
+*/
+async function updateData(){
+    const pyProg = spawn('python', ['./../premier_league_api/cli_stats/subprocess_cli.py', '-u', '-ptfles', 'en_pr']);
+    pyProg.stdout.on('data', function(data) {
+    console.log(data.toString())
+    })
+}
+
+
 async function latestSeasonId() {
     var data = await LeagueStandingsModel.aggregate()
         .group({
@@ -57,8 +77,3 @@ async function getSeasons() {
 }
 
 
-module.exports = {
-    latestSeasonId,
-    latestSeasonLabel,
-    getSeasons,
-}
