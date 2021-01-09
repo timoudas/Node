@@ -1,8 +1,10 @@
 #tablepage-container {
     display: grid;
     grid-template-columns: auto 1fr;
+    grid-gap: 73px;
     margin-left: 27px;
     margin-top: 27px;
+    grid-area: "table canvas";
 }
 
 #league-standing-filter {
@@ -45,3 +47,9 @@ $position-down: 18, 19, 20;
     }
 }
 
+#team-progress-graph {
+    margin-right: 27px;
+    width: 400px;
+    height: 200px;
+    background-color: aquamarine;
+}

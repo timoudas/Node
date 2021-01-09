@@ -14,6 +14,14 @@ $(".clickable-row").click(function() {
         url: '/table/team?' + $.param({ teamId: teamVal }),
         success: (data) => {
             console.log(data)
+            var ctx = document.getElementById('team-progress-graph').getContext('2d');
+            // var myLineChart = new Chart(ctx, {
+            //     type: 'line',
+            //     datasets: [
+            //         {}
+            //     ]
+            //     options: options
+            // });
             // TODO: CREATE GRAPH FROM DATA
         }
     })
