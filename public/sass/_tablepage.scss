@@ -13,6 +13,12 @@
     box-shadow: $box-shadow;
 }
 
+.clickable-row {
+    &:hover {
+        cursor: pointer;
+    }
+}
+
 $positions-cl: 1, 2, 3;
 $position-neutral: 17;
 $position-down: 18, 19, 20;

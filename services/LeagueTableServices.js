@@ -37,6 +37,7 @@ async function getTable(seasonId, tableType="overall",) {
         .project({
             'position': 1,
             'team_shortName': 1,
+            'team_id': 1,
             'played': `$${tableType}.played`,
             'won': `$${tableType}.won`,
             'drawn': `$${tableType}.drawn`,

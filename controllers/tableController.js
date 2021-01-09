@@ -5,6 +5,7 @@ const { registerDecorator } = require('handlebars')
 const { Collection } = require('mongoose')
 const LeagueStandingServices = require('../services/LeagueTableServices.js')
 const utils = require('../services/utils.js')
+const teamServices = require('../services/teamServices.js')
 
 
 var seasonId = async () => {
@@ -55,6 +56,20 @@ tableController.updateData = async function(req, res){
     await LeagueStandingServices.updateTableData()
     console.log('Data updated')
     res.redirect('table/tableindex')
+}
+
+
+
+
+tableController.teamProgPOST = async function (req, res){
+    try {
+        var teamProgData = await teamServices.getTeamProgress(req.query.teamId)
+        console.log(teamProgData)
+    } catch (error) {
+        console.log(error)
+    }
+    res.json(teamProgData)
+    res.end()
 }
 
 tableController.handleFilters = async function (req, res) {

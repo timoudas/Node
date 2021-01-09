@@ -7,6 +7,19 @@ var typeSelection = $('#homeAwayToggle').children(":first").val()
 var MatchweekSelection = $('#homeAwayToggle').children(":first").val()
 // var leagueTableUpdateTimeStamp = 0
 
+$(".clickable-row").click(function() {
+    const teamVal = $(this).attr('value')
+    $.ajax({
+        type: 'POST',
+        url: '/table/team?' + $.param({ teamId: teamVal }),
+        success: (data) => {
+            console.log(data)
+            // TODO: CREATE GRAPH FROM DATA
+        }
+    })
+});
+
+
 
 $('#updateDataButton').bind('click', function(event){
     console.log(event.timeStamp)
