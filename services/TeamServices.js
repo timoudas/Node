@@ -39,7 +39,7 @@ async function getTeams(season){
     return data
 }
 
-async function getTeamProgress(teamId, limit){
+async function getTeamProgress(teamId){
     var teamId = parseInt(teamId)
     var limit = parseInt(limit)
     var data = await TeamStandingsModel.aggregate()   
@@ -48,9 +48,14 @@ async function getTeamProgress(teamId, limit){
         'team_id': teamId
     })
     .sort({
-        'gameweek': -1
+        'gameweek': 1
     })
-    .limit(limit)
+    .group({
+        '_id': '$teamId',
+        'positionAll': {'$addToSet': '$position'},
+        'pointsAll': {'$addToSet': '$points'},
+
+    })
     console.log(data)
     return data
 }
