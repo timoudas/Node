@@ -3,7 +3,12 @@ const { TeamStandingsModel } = require("../models/TeamStandings");
 const utils = require('../services/utils.js')
 const { spawn } = require('child_process');
 
-
+module.exports = {
+    getTable,
+    filterTableSeason,
+    filterMatchweeks,
+    updateTableData
+}
 
 
 /** 
@@ -81,59 +86,5 @@ async function filterMatchweeks(seasonId) {
     return data;
 }
 
-async function teamForm(){
-    var data = await TeamStandingsModel.aggregate()
-    .match({
-        'seasonId': await utils.latestSeasonId(), 'team_id': 1,
-    })
-    .sort({
-        'gameweek':-1
-    })
-    .unwind(
-        'fixtures'
-    )
-    .addFields({
-        'form' : [],
-    })
-    .project({
-        'form': {
-            '$switch': {
-                "branches": [
-                    {'case': {
-                        "$eq": ['$team_id', '$fixtures.home_team_id']
-                        }, 'then': {
-                            "branches": [
-                                {'case:': {"$gt": ['$fixtures.home_team_score', '$fixtures.awat_team_score']}, 'then': 'W'},
-                                {'case:': {"$eq": ['$fixtures.home_team_score', '$fixtures.awat_team_score']}, 'then': 'D'},
-                                {'case:': {"$lt": ['$fixtures.home_team_score', '$fixtures.awat_team_score']}, 'then': 'L'},
-                            ]
-                        }
-                    },
-                    {'case': {
-                        "$eq": ['$team_id', '$fixtures.away_team_id']
-                        }, 'then': {
-                            "branches": [
-                                {'case:': {"$gt": ['$fixtures.home_team_score', '$fixtures.awat_team_score']}, 'then': 'L'},
-                                {'case:': {"$eq": ['$fixtures.home_team_score', '$fixtures.awat_team_score']}, 'then': 'D'},
-                                {'case:': {"$lt": ['$fixtures.home_team_score', '$fixtures.awat_team_score']}, 'then': 'W'},
-                            ]
-                        }
-                    }
-                ]
-            }
-        },
-    })
-    .out(
-        'form_stats'
-    )
-    return data
-}
-teamForm()
 
-module.exports = {
-    getTable,
-    filterTableSeason,
-    filterMatchweeks,
-    teamForm,
-    updateTableData
-}
+
