@@ -65,59 +65,63 @@ async function getTeamProgress(teamId){
 
 async function getTeamForm(teamId){
     var teamId = parseInt(teamId)
-    var data = await TeamSquadsModel.aggregate()
+    var data = await TeamStandingsModel.aggregate()
+    .addFields({
+        'form': []
+    })
     .match({
         'seasonId': await utils.latestSeasonId(),
-        'teamId': teamId
-    })
-    // TODO: FINISH QUERY TO RETURN FORM
-    /* async function teamForm(){
-    var data = await TeamStandingsModel.aggregate()
-    .match({
-        'seasonId': await utils.latestSeasonId(), 'team_id': 1,
+        'team_id': teamId
     })
     .sort({
-        'gameweek':-1
+        gameweek: -1
     })
     .unwind(
         'fixtures'
     )
-    .addFields({
-        'form' : [],
-    })
-    .project({
+    .group({
+        '_id': '$team_id',
+        'teamName': {'$first': '$team_shortName'},
         'form': {
-            '$switch': {
-                "branches": [
-                    {'case': {
-                        "$eq": ['$team_id', '$fixtures.home_team_id']
-                        }, 'then': {
-                            "branches": [
-                                {'case:': {"$gt": ['$fixtures.home_team_score', '$fixtures.awat_team_score']}, 'then': 'W'},
-                                {'case:': {"$eq": ['$fixtures.home_team_score', '$fixtures.awat_team_score']}, 'then': 'D'},
-                                {'case:': {"$lt": ['$fixtures.home_team_score', '$fixtures.awat_team_score']}, 'then': 'L'},
-                            ]
+            '$push': {
+                '$switch': {
+                    'branches': [
+                        { 'case': { '$eq': [ '$team_shortName', '$fixtures.home_team_shortName' ] }, 
+                            'then': {
+                                '$switch': {
+                                    'branches' : [
+                                        {'case': { '$eq': [ '$fixtures.home_team_score', '$fixtures.away_team_score' ] }, 'then': 'D' },
+                                        {'case': { '$gt': [ '$fixtures.home_team_score', '$fixtures.away_team_score' ] }, 'then': 'W' },
+                                        {'case': { '$lt': [ '$fixtures.home_team_score', '$fixtures.away_team_score' ] }, 'then': 'F' }
+                                    ],
+                                    'default': "home wrong"
+                                }
+                            } 
+                        },
+                        { 'case': { '$eq': [ '$team_shortName', '$fixtures.away_team_shortName' ] },
+                            'then': {
+                                '$switch': {
+                                    'branches': [
+                                        {'case': { '$eq': [ '$fixtures.home_team_score', '$fixtures.away_team_score' ] }, 'then': 'D' },
+                                        {'case': { '$gt': [ '$fixtures.home_team_score', '$fixtures.away_team_score' ] }, 'then': 'F' },
+                                        {'case': { '$lt': [ '$fixtures.home_team_score', '$fixtures.away_team_score' ] }, 'then': 'W' }
+                                    ],
+                                    'default': "Away wrong"
+                                }
+                            }
                         }
-                    },
-                    {'case': {
-                        "$eq": ['$team_id', '$fixtures.away_team_id']
-                        }, 'then': {
-                            "branches": [
-                                {'case:': {"$gt": ['$fixtures.home_team_score', '$fixtures.awat_team_score']}, 'then': 'L'},
-                                {'case:': {"$eq": ['$fixtures.home_team_score', '$fixtures.awat_team_score']}, 'then': 'D'},
-                                {'case:': {"$lt": ['$fixtures.home_team_score', '$fixtures.awat_team_score']}, 'then': 'W'},
-                            ]
-                        }
-                    }
-                ]
+                    ],
+                    'default': "Everything wrong",
+                }
             }
-        },
+        }
     })
-    .out(
-        'form_stats'
-    )
+
+
+    console.log(data)
     return data
 }
-teamForm() */
-}
+
+getTeamForm(1)
+
 
