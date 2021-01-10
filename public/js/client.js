@@ -12,20 +12,53 @@ $(".clickable-row").click(function() {
     $.ajax({
         type: 'POST',
         url: '/table/team?' + $.param({ teamId: teamVal }),
-        success: (data) => {
-            console.log(data)
+        success: (res) => {
+            var result = res[0]
+            var points = result.pointsAll
+            var position = result.positionAll
+            var labels = result.gameweeks
+            console.log(points)
+            console.log(position)
+            console.log(labels)
+            var lineChartData = {
+                labels: labels,
+                datasets: [
+                    {
+                        label: "Points",
+                        fillColor: "rgba(0,0,0,0)",
+                        strokeColor: "rgba(220,220,220,1)",
+                        pointColor: "rgba(200,122,20,1)",
+
+                        data: points
+                    },
+                    {
+                        label: "Position",
+                        fillColor: "rgba(0,0,0,0)",
+                        strokeColor: "rgba(220,220,220,1)",
+                        pointColor: "rgba(200,122,20,1)",
+
+                        data: position
+                    },
+                ]
+            }
             var ctx = document.getElementById('team-progress-graph').getContext('2d');
-            // var myLineChart = new Chart(ctx, {
-            //     type: 'line',
-            //     datasets: [
-            //         {}
-            //     ]
-            //     options: options
-            // });
-            // TODO: CREATE GRAPH FROM DATA
+            var myLineChart = new Chart(ctx, {
+                type: 'line',
+                data: lineChartData,
+                bezierCurve: true,
+                chartArea: { width: '62%' },
+                responsive: true,
+                pointDotRadius: 10,
+                scaleShowVerticalLines: false,
+                scaleGridLineColor: 'black'
+
+
+            });
         }
     })
-});
+})
+                
+
 
 
 

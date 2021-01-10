@@ -49,7 +49,6 @@ $position-down: 18, 19, 20;
 
 #team-progress-graph {
     margin-right: 27px;
-    width: 400px;
-    height: 200px;
-    background-color: aquamarine;
+    width: 400px !important;
+    height: 300px !important;
 }

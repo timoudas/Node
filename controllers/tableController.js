@@ -64,7 +64,6 @@ tableController.updateData = async function(req, res){
 tableController.teamProgPOST = async function (req, res){
     try {
         var teamProgData = await teamServices.getTeamProgress(req.query.teamId)
-        console.log(teamProgData)
     } catch (error) {
         console.log(error)
     }

@@ -53,6 +53,7 @@ async function getTeamProgress(teamId){
         '_id': '$team_id',
         'positionAll': {'$push': '$position'},
         'pointsAll': {'$push': '$points'},
+        'gameweeks': {'$push': '$gameweek'},
         'teamName': {'$first': '$team_shortName'},
         'teamId': {'$first': '$team_id'}
     })
