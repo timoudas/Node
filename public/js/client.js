@@ -1,8 +1,9 @@
 // Using .html in jQuery big NO NO: https://medium.com/@jenlindner22/the-risk-of-innerhtml-3981253fe217, switched to .text
+
 // Chart Variables
 var teamProgressChart
 
-// Get initial value from filters
+// Get initial value from filters in /table
 var seasonSelection = $('#seasonToggle').children(":first").val()
 var typeSelection = $('#homeAwayToggle').children(":first").val()
 var MatchweekSelection = $('#homeAwayToggle').children(":first").val()
@@ -105,7 +106,9 @@ $(".clickable-row").click(function() {
 
 
 
-
+/**
+ * Button to updata data in /table
+ */
 $('#updateDataButton').bind('click', function(event){
     console.log(event.timeStamp)
     $.ajax({
@@ -118,7 +121,10 @@ $('#updateDataButton').bind('click', function(event){
         
     })
 });
-//Click eventlistner for home-page player stats
+
+/**
+ * Click eventlistner for home-page player stats
+ */
 const homeTable = document.querySelectorAll(".stats-item");
 homeTable.forEach(element => {
     element.addEventListener('click', homeTableToggle)
