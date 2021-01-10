@@ -28,18 +28,28 @@ $(".clickable-row").click(function() {
                         fillColor: "rgba(0,0,0,0)",
                         strokeColor: "rgba(220,220,220,1)",
                         pointColor: "rgba(200,122,20,1)",
+                        borderColor: "rgba(43, 87, 29, 0.9)",
+                        fill: false,
 
-                        data: points
+                        data: points,
+                        yAxisID: 'points'
                     },
                     {
                         label: "Position",
-                        fillColor: "rgba(0,0,0,0)",
-                        strokeColor: "rgba(220,220,220,1)",
-                        pointColor: "rgba(200,122,20,1)",
+                        fillColor: "rgba(172, 26, 26, 0.9)",
+                        strokeColor: "rgba(172, 26, 26, 0.9)",
+                        pointColor: "rgba(172, 26, 26, 0.9)",
+                        borderColor: "rgba(14, 86, 168, 0.9)",   
+                        fill: false,
 
-                        data: position
+                        data: position,
+                        yAxisID: 'points'
                     },
-                ]
+                ],
+                options: {
+                    display: false
+                }
+
             }
             var ctx = document.getElementById('team-progress-graph').getContext('2d');
             var myLineChart = new Chart(ctx, {
