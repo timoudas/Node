@@ -1,5 +1,6 @@
 // Using .html in jQuery big NO NO: https://medium.com/@jenlindner22/the-risk-of-innerhtml-3981253fe217, switched to .text
-
+// Chart Variables
+var teamProgressChart
 
 // Get initial value from filters
 var seasonSelection = $('#seasonToggle').children(":first").val()
@@ -7,6 +8,9 @@ var typeSelection = $('#homeAwayToggle').children(":first").val()
 var MatchweekSelection = $('#homeAwayToggle').children(":first").val()
 // var leagueTableUpdateTimeStamp = 0
 
+/**
+ * Team progress chart update in /table
+ */
 $(".clickable-row").click(function() {
     const teamVal = $(this).attr('value')
     $.ajax({
@@ -20,50 +24,80 @@ $(".clickable-row").click(function() {
             console.log(points)
             console.log(position)
             console.log(labels)
-            var lineChartData = {
-                labels: labels,
-                datasets: [
-                    {
-                        label: "Points",
-                        fillColor: "rgba(0,0,0,0)",
-                        strokeColor: "rgba(220,220,220,1)",
-                        pointColor: "rgba(200,122,20,1)",
-                        borderColor: "rgba(43, 87, 29, 0.9)",
-                        fill: false,
-
-                        data: points,
-                        yAxisID: 'points'
-                    },
-                    {
-                        label: "Position",
-                        fillColor: "rgba(172, 26, 26, 0.9)",
-                        strokeColor: "rgba(172, 26, 26, 0.9)",
-                        pointColor: "rgba(172, 26, 26, 0.9)",
-                        borderColor: "rgba(14, 86, 168, 0.9)",   
-                        fill: false,
-
-                        data: position,
-                        yAxisID: 'points'
-                    },
-                ],
-                options: {
-                    display: false
+            if (teamProgressChart) {
+                teamProgressChart.data.labels = labels
+                teamProgressChart.data.datasets[0].data = points
+                teamProgressChart.data.datasets[1].data = position
+                teamProgressChart.update()
+              } else {
+                    var ctx = document.getElementById('team-progress-graph').getContext('2d');
+                    Chart.defaults.global.defaultFontSize = 24;
+                    teamProgressChart = new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: labels,
+                            datasets: [
+                                {
+                                    label: "Points",
+                                    fillColor: "rgba(0,0,0,0)",
+                                    strokeColor: "rgba(220,220,220,1)",
+                                    pointColor: "rgba(200,122,20,1)",
+                                    borderColor: "rgba(43, 87, 29, 0.9)",
+                                    fill: false,
+            
+                                    data: points,
+                                    yAxisID: 'points'
+                                },
+                                {
+                                    label: "Position",
+                                    fillColor: "rgba(172, 26, 26, 0.9)",
+                                    strokeColor: "rgba(172, 26, 26, 0.9)",
+                                    pointColor: "rgba(172, 26, 26, 0.9)",
+                                    borderColor: "rgba(14, 86, 168, 0.9)",   
+                                    fill: false,
+            
+                                    data: position,
+                                    yAxisID: 'position'
+                                },
+                            ],
+                        },
+                        options: {
+                            scales: {
+                                xAxes: [
+                                    {
+                                        ticks: {
+                                            fontSize: 24,
+                                            autoSkip: false,
+                                            beginAtZero: true
+                                        }
+                                }
+                                ],
+                                yAxes: [
+                                    {
+                                        id: 'points',
+                                        min: 0,
+                                        position: 'left',
+                                        ticks: {
+                                            fontSize: 24,
+                                            beginAtZero: true
+                                        }
+                                    },
+                                    {
+                                        id: 'position',
+                                        suggestedMin : 0,
+                                        suggestedMax : 20,
+                                        position: 'right', 
+                                        ticks: {
+                                            fontSize: 24
+                                        }
+                                    },
+                                    
+                                ]
+                            },
+                            display: false,
+                        },
+                    })
                 }
-
-            }
-            var ctx = document.getElementById('team-progress-graph').getContext('2d');
-            var myLineChart = new Chart(ctx, {
-                type: 'line',
-                data: lineChartData,
-                bezierCurve: true,
-                chartArea: { width: '62%' },
-                responsive: true,
-                pointDotRadius: 10,
-                scaleShowVerticalLines: false,
-                scaleGridLineColor: 'black'
-
-
-            });
         }
     })
 })

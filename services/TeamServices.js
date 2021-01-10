@@ -1,6 +1,7 @@
 const { TeamSquadsModel } = require("../models/TeamSquads");
 const { TeamStandingsModel } = require("../models/TeamStandings");
 const { LeagueStatsModel } = require("../models/LeagueStanding");
+const { FixtureStatsModel } = require("../models/FixtureStats");
 const utils = require('../services/utils.js')
 
 module.exports = {
@@ -57,7 +58,6 @@ async function getTeamProgress(teamId){
         'teamName': {'$first': '$team_shortName'},
         'teamId': {'$first': '$team_id'}
     })
-    console.log(data)
     return data
 }
 
