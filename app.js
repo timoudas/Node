@@ -35,8 +35,8 @@ app.use(
         src: __dirname + '/public/sass', 
         dest: __dirname + '/public/css',
         prefix: '/css',
-        debug: true,   
-        outputStyle: 'compressed',      
+        // debug: true,   
+        outputStyle: 'compressed'    
     })
 );   
 app.use(express.static(__dirname + '/public'));

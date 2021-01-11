@@ -1,8 +1,8 @@
 'use strict'
 
-const TeamsController = {}
-const teamsServices = require('../services/TeamServices')
-const utils = require('../services/utils.js')
+const TeamsController = {};
+const teamsServices = require('../services/TeamServices');
+const utils = require('../services/utils.js');
 
 
 /**

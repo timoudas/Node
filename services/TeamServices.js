@@ -7,7 +7,7 @@ const utils = require('../services/utils.js')
 module.exports = {
     getTeams,
     getTeamProgress,
-    getTeamForm
+    getTeamForm,
 }
 
 /**
@@ -62,20 +62,19 @@ async function getTeamProgress(teamId){
 }
 
 
-
-async function getTeamForm(teamId){
+async function getTeamForm(teamId, limit){
     var teamId = parseInt(teamId)
+    var season = await utils.latestSeasonId()
+    console.log(season)
     var data = await TeamStandingsModel.aggregate()
-    .addFields({
-        'form': []
-    })
     .match({
-        'seasonId': await utils.latestSeasonId(),
+        'seasonId': season,
         'team_id': teamId
     })
     .sort({
-        gameweek: -1
+        'gameweek': -1
     })
+    .limit(parseInt(limit))
     .unwind(
         'fixtures'
     )
@@ -116,12 +115,7 @@ async function getTeamForm(teamId){
             }
         }
     })
-
-
     console.log(data)
     return data
 }
-
-getTeamForm(1)
-
 
