@@ -22,6 +22,7 @@ $(".clickable-row").click(function() {
             var points = result.pointsAll
             var position = result.positionAll
             var labels = result.gameweeks
+            var team = result.teamName
             console.log(points)
             console.log(position)
             console.log(labels)
@@ -29,10 +30,11 @@ $(".clickable-row").click(function() {
                 teamProgressChart.data.labels = labels
                 teamProgressChart.data.datasets[0].data = points
                 teamProgressChart.data.datasets[1].data = position
+                teamProgressChart.options.title.text = team
                 teamProgressChart.update()
               } else {
                     var ctx = document.getElementById('team-progress-graph').getContext('2d');
-                    Chart.defaults.global.defaultFontSize = 24;
+                    Chart.defaults.global.defaultFontSize = 16;
                     teamProgressChart = new Chart(ctx, {
                         type: 'line',
                         data: {
@@ -63,11 +65,15 @@ $(".clickable-row").click(function() {
                             ],
                         },
                         options: {
+                            title: {
+                                display: true,
+                                text: team
+                            },
                             scales: {
                                 xAxes: [
                                     {
                                         ticks: {
-                                            fontSize: 24,
+                                            // fontSize: 24,
                                             autoSkip: false,
                                             beginAtZero: true
                                         }
@@ -79,7 +85,7 @@ $(".clickable-row").click(function() {
                                         min: 0,
                                         position: 'left',
                                         ticks: {
-                                            fontSize: 24,
+                                            // fontSize: 24,
                                             beginAtZero: true
                                         }
                                     },
@@ -88,9 +94,9 @@ $(".clickable-row").click(function() {
                                         suggestedMin : 0,
                                         suggestedMax : 20,
                                         position: 'right', 
-                                        ticks: {
-                                            fontSize: 24
-                                        }
+                                        // ticks: {
+                                        //     fontSize: 24
+                                        // }
                                     },
                                     
                                 ]
