@@ -12,7 +12,8 @@ var MatchweekSelection = $('#homeAwayToggle').children(":first").val()
 /**
  * Team progress chart update in /table
  */
-$(".clickable-row").click(function() {
+$(document).on("click", ".clickable-row", function() {
+    console.log('hello')
     const teamVal = $(this).attr('value')
     $.ajax({
         type: 'POST',
@@ -23,16 +24,13 @@ $(".clickable-row").click(function() {
             var position = result.positionAll
             var labels = result.gameweeks
             var team = result.teamName
-            console.log(points)
-            console.log(position)
-            console.log(labels)
             if (teamProgressChart) {
                 teamProgressChart.data.labels = labels
                 teamProgressChart.data.datasets[0].data = points
                 teamProgressChart.data.datasets[1].data = position
                 teamProgressChart.options.title.text = team
                 teamProgressChart.update()
-              } else {
+            } else {
                     var ctx = document.getElementById('team-progress-graph').getContext('2d');
                     Chart.defaults.global.defaultFontSize = 16;
                     teamProgressChart = new Chart(ctx, {
@@ -108,7 +106,7 @@ $(".clickable-row").click(function() {
         }
     })
 })
-                
+              
 
 
 
@@ -137,7 +135,6 @@ homeTable.forEach(element => {
 })
 function homeTableToggle(event){
     var queryVal = event.target.value
-    console.log(queryVal)
     if (queryVal == 1){
         $.ajax({
             type: 'POST',
@@ -145,7 +142,6 @@ function homeTableToggle(event){
             success: (newVals) => {   
                 $('#stats-placehld').text("AvgPlayTime")
                 $('#stats-placehld1').text("AvgPasses")
-                console.log($('#stats-placehld1').textContent)
                 $('#playerStatsAvg').empty();
                 for(let i = 0; i < 50; i++) {
                     let filteredTr = newVals[i]
@@ -189,10 +185,14 @@ function homeTableToggle(event){
 
 
 //Click eventlistner for all table-filters
-const selection = document.querySelectorAll(".dropdown-item");
-selection.forEach(element => {
-   element.addEventListener('click', pickSelection)
+$(document).ready(function() {
+    const selection = document.querySelectorAll(".dropdown-item");
+    selection.forEach(element => {
+    element.addEventListener('click', pickSelection)
+    })
 })
+
+
 function pickSelection(event) {
     let text = ""
     switch(event.target.parentElement.id){
@@ -218,22 +218,25 @@ function pickSelection(event) {
         url: '/table?' + $.param({ seasonVal: seasonSelection, 
                                 typeVal: typeSelection,
                                 matchWeekVal: MatchweekSelection}),
-   success: (filteredSeasonValues) => {          
+        success: (filteredSeasonValues) => {          
             $('#league-table-rows').empty();
             for(let i = 0; i < 20; i++) {
                 let filteredTr = filteredSeasonValues[i]
-                let newHtml = `<tr>
-                <td>${i+1}</td>
-                <td><img src='badges/${filteredTr.team_shortName}.png' />
-                ${filteredTr.team_shortName}</td>
-                <td>${filteredTr.played}</td>
-                <td>${filteredTr.won}</td>
-                <td>${filteredTr.drawn}</td>
-                <td>${filteredTr.lost}</td>
-                <td>${filteredTr.goalsFor}</td>
-                <td>${filteredTr.goalsAgainst}</td>
-                <td>${filteredTr.goalsDifference}</td>
-                <td>${filteredTr.points}</td>
+                let newHtml = 
+                `<tr id="pos-id-${i+1}">
+                    <td>${i+1}</td>
+                    <td class="clickable-row" value="${filteredTr.team_id}"> 
+                        <img src='badges/${filteredTr.team_shortName}.png'/>
+                        ${filteredTr.team_shortName}
+                    </td>
+                    <td>${filteredTr.played}</td>
+                    <td>${filteredTr.won}</td>
+                    <td>${filteredTr.drawn}</td>
+                    <td>${filteredTr.lost}</td>
+                    <td>${filteredTr.goalsFor}</td>
+                    <td>${filteredTr.goalsAgainst}</td>
+                    <td>${filteredTr.goalsDifference}</td>
+                    <td>${filteredTr.points}</td>
                 </tr>`
 
                 $('#league-table-rows').append(newHtml)
