@@ -64,6 +64,7 @@ async function getTeamProgress(teamId){
 
 async function getTeamForm(teamId, limit){
     var teamId = parseInt(teamId)
+    var formLimit = (limit == undefined) ? 5 : parseInt(limit)
     var season = await utils.latestSeasonId()
     console.log(season)
     var data = await TeamStandingsModel.aggregate()
@@ -74,7 +75,7 @@ async function getTeamForm(teamId, limit){
     .sort({
         'gameweek': -1
     })
-    .limit(parseInt(limit))
+    .limit(formLimit)
     .unwind(
         'fixtures'
     )
@@ -115,7 +116,6 @@ async function getTeamForm(teamId, limit){
             }
         }
     })
-    console.log(data)
     return data
 }
 

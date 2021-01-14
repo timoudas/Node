@@ -26,12 +26,6 @@ var seasonLabel = async () => {
  */
 tableController.index = async function (req, res) {
     try{
-        var matchweeks = await LeagueStandingServices.filterMatchweeks(await seasonId())
-        var seasons = await LeagueStandingServices.filterTableSeason()
-    }catch(err){
-        console.log(err)
-    }
-    try{
         var table = await LeagueStandingServices.getTable(await seasonId())
         var matchweeks = await LeagueStandingServices.filterMatchweeks(await seasonId())
         var seasons = await LeagueStandingServices.filterTableSeason()
@@ -64,10 +58,15 @@ tableController.updateData = async function(req, res){
 tableController.teamProgPOST = async function (req, res){
     try {
         var teamProgData = await teamServices.getTeamProgress(req.query.teamId)
+        var teamForm = await teamServices.getTeamForm(req.query.teamId, 5)
     } catch (error) {
         console.log(error)
     }
-    res.json(teamProgData)
+    var data = {
+        teamProgData: teamProgData,
+        teamFormData: teamForm
+      };
+    res.json(data)
     res.end()
 }
 

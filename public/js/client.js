@@ -13,13 +13,13 @@ var MatchweekSelection = $('#homeAwayToggle').children(":first").val()
  * Team progress chart update in /table
  */
 $(document).on("click", ".clickable-row", function() {
-    console.log('hello')
     const teamVal = $(this).attr('value')
     $.ajax({
         type: 'POST',
         url: '/table/team?' + $.param({ teamId: teamVal }),
         success: (res) => {
-            var result = res[0]
+            // console.log(res.teamFormData[0])
+            var result = res.teamProgData[0]
             var points = result.pointsAll
             var position = result.positionAll
             var labels = result.gameweeks
