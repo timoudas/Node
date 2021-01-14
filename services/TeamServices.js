@@ -92,7 +92,7 @@ async function getTeamForm(teamId, limit){
                                     'branches' : [
                                         {'case': { '$eq': [ '$fixtures.home_team_score', '$fixtures.away_team_score' ] }, 'then': 'D' },
                                         {'case': { '$gt': [ '$fixtures.home_team_score', '$fixtures.away_team_score' ] }, 'then': 'W' },
-                                        {'case': { '$lt': [ '$fixtures.home_team_score', '$fixtures.away_team_score' ] }, 'then': 'F' }
+                                        {'case': { '$lt': [ '$fixtures.home_team_score', '$fixtures.away_team_score' ] }, 'then': 'L' }
                                     ],
                                     'default': "home wrong"
                                 }
@@ -103,7 +103,7 @@ async function getTeamForm(teamId, limit){
                                 '$switch': {
                                     'branches': [
                                         {'case': { '$eq': [ '$fixtures.home_team_score', '$fixtures.away_team_score' ] }, 'then': 'D' },
-                                        {'case': { '$gt': [ '$fixtures.home_team_score', '$fixtures.away_team_score' ] }, 'then': 'F' },
+                                        {'case': { '$gt': [ '$fixtures.home_team_score', '$fixtures.away_team_score' ] }, 'then': 'L' },
                                         {'case': { '$lt': [ '$fixtures.home_team_score', '$fixtures.away_team_score' ] }, 'then': 'W' }
                                     ],
                                     'default': "Away wrong"

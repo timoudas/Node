@@ -47,9 +47,21 @@ $position-down: 18, 19, 20;
     }
 }
 
+.team-progress-container{
+    grid-area: 1 / 2 / 2 / 3;
+}
+.team-prog-info {
+    position: sticky;
+    top:0;
+}
+
 #team-progress-graph {
     margin-right: 27px;
     width: 420px !important;
     height: 300px !important;
-    position: fixed;
+}
+
+.team-form {
+    color: $text-color;
+
 }

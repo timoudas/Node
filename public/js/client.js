@@ -18,12 +18,31 @@ $(document).on("click", ".clickable-row", function() {
         type: 'POST',
         url: '/table/team?' + $.param({ teamId: teamVal }),
         success: (res) => {
-            // console.log(res.teamFormData[0])
+            var teamForm = res.teamFormData[0]
             var result = res.teamProgData[0]
             var points = result.pointsAll
             var position = result.positionAll
             var labels = result.gameweeks
             var team = result.teamName
+            // TODO: FIX FOR LOOP TO APPEND ELEMENTS
+            for (var i = 0; i < 5; i++){
+                var teamFormHTML
+                switch(i){
+                    case 'W':
+                        teamFormHtml = `<div class='team-win'>${teamForm.form[i]}</div>`  
+                        console.log(teamFormHTML)
+                        $('.team-form').append(teamFormHTML)
+                        break
+                    case 'D':
+                        teamFormHtml = `<div class='team-draw'>${teamForm.form[i]}</div>` 
+                        $('.team-form').append(teamFormHTML)
+                        break
+                    case 'L':
+                        teamFormHtml = `<div class='team-loss'>${teamForm.form[i]}</div>` 
+                        $('.team-prog-info .team-form').append(teamFormHtml)
+                        break
+                }
+            }
             if (teamProgressChart) {
                 teamProgressChart.data.labels = labels
                 teamProgressChart.data.datasets[0].data = points
