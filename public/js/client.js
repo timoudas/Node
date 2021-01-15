@@ -10,6 +10,29 @@ var MatchweekSelection = $('#homeAwayToggle').children(":first").val()
 // var leagueTableUpdateTimeStamp = 0
 
 /**
+ * Function to create win/draw/loss div
+ */
+function teamFromDiv(teamForm, div){
+    $(div).empty()
+    for (var i = 0; i < 5; i++){
+        var teamFormHtml
+        switch(teamForm.form[i]){
+            case 'W':
+                teamFormHtml = `<div class='team-form-cont' id="team-win">${teamForm.form[i]}</div>`  
+                break
+            case 'D':
+                teamFormHtml = `<div class='team-form-cont' id="team-draw">${teamForm.form[i]}</div>` 
+                break
+            case 'L':
+                teamFormHtml = `<div class='team-form-cont' id="team-loss">${teamForm.form[i]}</div>` 
+                break
+        }
+        console.log('done')
+        $(div).append(teamFormHtml)
+    }
+}
+
+/**
  * Team progress chart update in /table
  */
 $(document).on("click", ".clickable-row", function() {
@@ -24,25 +47,8 @@ $(document).on("click", ".clickable-row", function() {
             var position = result.positionAll
             var labels = result.gameweeks
             var team = result.teamName
+            teamFromDiv(teamForm, ".team-form")
             // TODO: FIX FOR LOOP TO APPEND ELEMENTS
-            for (var i = 0; i < 5; i++){
-                var teamFormHTML
-                switch(i){
-                    case 'W':
-                        teamFormHtml = `<div class='team-win'>${teamForm.form[i]}</div>`  
-                        console.log(teamFormHTML)
-                        $('.team-form').append(teamFormHTML)
-                        break
-                    case 'D':
-                        teamFormHtml = `<div class='team-draw'>${teamForm.form[i]}</div>` 
-                        $('.team-form').append(teamFormHTML)
-                        break
-                    case 'L':
-                        teamFormHtml = `<div class='team-loss'>${teamForm.form[i]}</div>` 
-                        $('.team-prog-info .team-form').append(teamFormHtml)
-                        break
-                }
-            }
             if (teamProgressChart) {
                 teamProgressChart.data.labels = labels
                 teamProgressChart.data.datasets[0].data = points
