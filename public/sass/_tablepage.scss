@@ -49,31 +49,42 @@ $position-down: 18, 19, 20;
 
 .team-progress-container{
     grid-area: 1 / 2 / 2 / 3;
+    display: grid;
+    grid-template-rows: max-content max-content auto;
 }
 .team-prog-info {
     position: sticky;
     top:0;
+    min-height: 300px;
 }
 
 #team-progress-graph {
     margin-right: 27px;
+    margin-bottom: 27px;
     width: 420px !important;
     height: 300px !important;
 }
 
 .team-form {
-    margin-top: 27px;
+    min-height: 34px;
+    margin-bottom: 27px;
     color: $text-color;
     display: grid;
     grid-template-columns: repeat(5, 40px);
-    justify-items: center;
-
+    grid-template-rows: max-content max-content;
+    position: sticky;
+    justify-self: center;
 }
+
 .team-form-cont{
     padding: 5px;
     color: $text-color;
     border-radius:50%;
     margin-right: 5px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    align-self: start
 }
 
 #team-win {
@@ -86,4 +97,19 @@ $position-down: 18, 19, 20;
 
 #team-loss {
     background-color: #b6161b;
+}
+
+.team-latest-fix {
+    color: $text-color;
+    display: grid;
+    grid-template-rows: repeat(5, 40px);
+    position: sticky;
+    align-self: start;
+    justify-content: center;
+    align-items: center;
+}
+
+.team-fixture {
+    display: grid;
+    grid-template-columns: 160px 40px 160px;
 }

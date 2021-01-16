@@ -59,12 +59,14 @@ tableController.teamProgPOST = async function (req, res){
     try {
         var teamProgData = await teamServices.getTeamProgress(req.query.teamId)
         var teamForm = await teamServices.getTeamForm(req.query.teamId, 5)
+        var teamLatestGames = await teamServices.getLatestGames(req.query.teamId)
     } catch (error) {
         console.log(error)
     }
     var data = {
         teamProgData: teamProgData,
-        teamFormData: teamForm
+        teamFormData: teamForm,
+        teamGameData: teamLatestGames
       };
     res.json(data)
     res.end()

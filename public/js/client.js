@@ -1,5 +1,20 @@
 // Using .html in jQuery big NO NO: https://medium.com/@jenlindner22/the-risk-of-innerhtml-3981253fe217, switched to .text
 
+/**
+ * Stick SidePanel in /table
+ */
+const firstdiv = $(".team-prog-info");
+var secondiv = $(".team-form");
+var thirdiv = $(".team-latest-fix");
+const fheight = firstdiv.outerHeight(true);
+const sheight = secondiv.outerHeight(true);
+console.log(fheight)
+console.log(sheight)
+console.log(secondiv)
+secondiv.css({ top: `${fheight}px`})
+thirdiv.css({top: `${fheight+sheight}px`})
+
+
 // Chart Variables
 var teamProgressChart
 
@@ -9,10 +24,27 @@ var typeSelection = $('#homeAwayToggle').children(":first").val()
 var MatchweekSelection = $('#homeAwayToggle').children(":first").val()
 // var leagueTableUpdateTimeStamp = 0
 
+function teamLatestFixtures(fixtures, div){
+    $(div).empty()
+    for (var i = 0; i < 5; i++){
+        var teamFixHTML =
+        `<div class="team-fixture value="${fixtures[i].fId}">
+            <div class="team-home" value=${fixtures[i].homeTeamId}>${fixtures[i].homeTeam}</div>
+            <div class="teams-score">${fixtures[i].homeTeamScore}-${fixtures[i].awayTeamScore}</div>
+            <div class="team-away" value=${fixtures[i].homeTeamId}>${fixtures[i].awayTeam}</div>
+        </div>`
+        $(div).append(teamFixHTML)
+    }
+}
+
+
 /**
+ * 
+ * @param {Array} teamForm | Values that indicate W / F / D
+ * @param {HTML} div | Target element
  * Function to create win/draw/loss div
  */
-function teamFromDiv(teamForm, div){
+function teamFormDiv(teamForm, div){
     $(div).empty()
     for (var i = 0; i < 5; i++){
         var teamFormHtml
@@ -41,13 +73,15 @@ $(document).on("click", ".clickable-row", function() {
         type: 'POST',
         url: '/table/team?' + $.param({ teamId: teamVal }),
         success: (res) => {
+            var teamLastesGames = res.teamGameData
             var teamForm = res.teamFormData[0]
             var result = res.teamProgData[0]
             var points = result.pointsAll
             var position = result.positionAll
             var labels = result.gameweeks
             var team = result.teamName
-            teamFromDiv(teamForm, ".team-form")
+            teamFormDiv(teamForm, ".team-form")
+            teamLatestFixtures(teamLastesGames, ".team-latest-fix")
             // TODO: FIX FOR LOOP TO APPEND ELEMENTS
             if (teamProgressChart) {
                 teamProgressChart.data.labels = labels

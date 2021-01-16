@@ -8,7 +8,43 @@ module.exports = {
     getTeams,
     getTeamProgress,
     getTeamForm,
+    getLatestGames,
 }
+/**
+ * 
+ * @param {String} teamId | Id for a team, e.g. 1.
+ */
+async function getLatestGames(teamId){
+    var teamId = parseInt(teamId)
+    var data = await TeamStandingsModel.aggregate()
+    .match({
+        'team_id': teamId,
+        'seasonId': await utils.latestSeasonId()
+    })
+    .sort({
+        'gameweek': -1
+    })
+    .limit(5)
+    .unwind(
+        'fixtures'
+    )
+    .project({
+        'homeTeam': '$fixtures.home_team_shortName',
+        'homeTeamId': '$fixtures.home_team_id',
+        'homeTeamScore': '$fixtures.home_team_score',
+        'grounds': '$fixtures.grounds',
+        'fId': '$fixtures.f_id',
+        'clockLabel': '$fixtures.clock_label',
+        'awayTeam': '$fixtures.away_team_shortName',
+        'awayTeamId': '$fixtures.away_team_id',
+        'awayTeamScore': '$fixtures.away_team_score',
+        '_id': 0
+    })
+    return data
+}
+
+
+getLatestGames(1)
 
 /**
  * 
@@ -66,7 +102,6 @@ async function getTeamForm(teamId, limit){
     var teamId = parseInt(teamId)
     var formLimit = (limit == undefined) ? 5 : parseInt(limit)
     var season = await utils.latestSeasonId()
-    console.log(season)
     var data = await TeamStandingsModel.aggregate()
     .match({
         'seasonId': season,
