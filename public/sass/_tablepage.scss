@@ -51,6 +51,7 @@ $position-down: 18, 19, 20;
     grid-area: 1 / 2 / 2 / 3;
     display: grid;
     grid-template-rows: max-content max-content auto;
+    grid-template-columns: 500px auto;
 }
 .team-prog-info {
     position: sticky;
@@ -61,8 +62,8 @@ $position-down: 18, 19, 20;
 #team-progress-graph {
     margin-right: 27px;
     margin-bottom: 27px;
-    width: 420px !important;
-    height: 300px !important;
+    width: 420px;
+    height: 300px;
 }
 
 .team-form {
@@ -70,6 +71,7 @@ $position-down: 18, 19, 20;
     margin-bottom: 27px;
     color: $text-color;
     display: grid;
+    grid-area: 2 / 1 / 3 / 2;
     grid-template-columns: repeat(5, 40px);
     grid-template-rows: max-content max-content;
     position: sticky;
@@ -102,6 +104,7 @@ $position-down: 18, 19, 20;
 .team-latest-fix {
     color: $text-color;
     display: grid;
+    grid-area: 3 / 1 / 4 / 2;
     grid-template-rows: repeat(5, 40px);
     position: sticky;
     align-self: start;
@@ -111,5 +114,26 @@ $position-down: 18, 19, 20;
 
 .team-fixture {
     display: grid;
-    grid-template-columns: 160px 40px 160px;
+    grid-template-columns: 160px 30px 30px 160px;
+    font-size: 16px;
+}
+
+.team-fixture .team-home {
+    text-align: right;
+}
+
+.team-fixture .teams-score__home {
+    text-align: center;
+    margin-right: 10px;
+    margin-left: 15px;
+}
+
+.team-fixture .teams-score__away {
+    text-align: center;
+    margin-right: 15px;
+    margin-left: 10px;
+}
+
+.team-fixture .team-away {
+    text-align: left;
 }

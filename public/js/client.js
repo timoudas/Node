@@ -30,7 +30,8 @@ function teamLatestFixtures(fixtures, div){
         var teamFixHTML =
         `<div class="team-fixture value="${fixtures[i].fId}">
             <div class="team-home" value=${fixtures[i].homeTeamId}>${fixtures[i].homeTeam}</div>
-            <div class="teams-score">${fixtures[i].homeTeamScore}-${fixtures[i].awayTeamScore}</div>
+            <div class="teams-score__home">${fixtures[i].homeTeamScore}</div>
+            <div class="teams-score__away">${fixtures[i].awayTeamScore}</div>
             <div class="team-away" value=${fixtures[i].homeTeamId}>${fixtures[i].awayTeam}</div>
         </div>`
         $(div).append(teamFixHTML)
