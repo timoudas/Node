@@ -44,8 +44,6 @@ async function getLatestGames(teamId){
 }
 
 
-getLatestGames(1)
-
 /**
  * 
  * @param {string} seasonId - Id for a season
@@ -160,11 +158,19 @@ async function rankTeams(){
     .group({
         '_id': {'season': '$seasonId', 'team_id': '$team_id'},
         'teamName': {'$first': '$team_shortName'},
-        'position': {'$push': '$position'}
+        'avgPosition':  {'$avg': '$position'}
         
     })
-
+    .sort({
+        '_id.season': -1,
+        'avgPosition': 1,
+    })
+    .project({
+        'season': '$_id.season',
+        'teamId': '$_id.team_id',
+        'teamName': 1,
+        'avgPosition': {'$round': [ '$avgPosition', 1] },
+        '_id': 0
+    })
     console.log(data)
 }
-
-rankTeams()

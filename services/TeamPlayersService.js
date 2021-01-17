@@ -70,15 +70,14 @@ async function getKeyPassPlayers(){
         'total_pass': {'$sum': '$total_pass'},
         'total_mins_played': {'$sum': '$mins_played'},
         'name': {'$first': '$name'},
+        'stdDevPasses': { '$stdDevSamp': {'$divide': [ '$total_pass', '$mins_played'] } },
+        'averagePasses': { '$avg': { '$divide': ['$total_pass', '$mins_played'] } }
     })
     .project({
         'totalPlaytime': '$total_mins_played',
         'total_pass': 1,
-        'averagePasses': {'$round': [ { '$cond': [ 
-            { '$eq':[ '$total_mins_played', 0 ] } , 0,
-            { '$multiply':[ 90, { "$divide":[ "$total_pass", "$total_mins_played" ] } ] } 
-            ]
-        }, 1] },
+        'stdDevPasses': { '$round':[ {'$multiply': [ '$stdDevPasses', 90 ] }, 2] },
+        'averagePasses': { '$round': [ { '$multiply': ['$averagePasses', 90] }, 2 ] },
         'name': '$name',
         'id': '$_id.id',
         'seasonId': '$_id.season',
@@ -112,6 +111,7 @@ async function getKeyPassPlayers(){
         'appearances': '$player_stats.players.appearances',
         'position': '$player_stats.players.position',
         'averagePasses': 1,
+        'stdDevPasses': 1,
         'averagePlaytime': {'$round': [ {'$divide':['$totalPlaytime', '$player_stats.players.appearances'] }, 1] },
         '_id': 0
     })
@@ -121,9 +121,11 @@ async function getKeyPassPlayers(){
         'teamId': 1
     })
 
-
+    console.log(data)
     return data
 }
+
+getKeyPassPlayers()
 
 async function getAvgPlayerSeasonPasses(playerId){
     var season = await utils.latestSeasonId()
