@@ -154,3 +154,17 @@ async function getTeamForm(teamId, limit){
     return data
 }
 
+async function rankTeams(){
+    var season = await utils.latestSeasonId
+    var data = await TeamStandingsModel.aggregate()
+    .group({
+        '_id': {'season': '$seasonId', 'team_id': '$team_id'},
+        'teamName': {'$first': '$team_shortName'},
+        'position': {'$push': '$position'}
+        
+    })
+
+    console.log(data)
+}
+
+rankTeams()

@@ -33,9 +33,10 @@ function teamLatestFixtures(fixtures, div){
             <div class="teams-score__home">${fixtures[i].homeTeamScore}</div>
             <div class="teams-score__away">${fixtures[i].awayTeamScore}</div>
             <div class="team-away" value=${fixtures[i].homeTeamId}>${fixtures[i].awayTeam}</div>
-        </div>`
+        </div>`    
         $(div).append(teamFixHTML)
     }
+    /* TODO: ADD STYLE */
 }
 
 

@@ -1,6 +1,7 @@
 const { TeamSquadsModel } = require("../models/TeamSquads");
 const { PlayerFixtureStatsModel } = require("../models/FixturePlayer");
 const { PlayerStatsModel } = require("../models/PlayerStats");
+const { FixtureStatsModel } = require("../models/FixtureStats");
 const utils = require('../services/utils.js')
 
 module.exports = {
@@ -124,6 +125,29 @@ async function getKeyPassPlayers(){
     return data
 }
 
+async function getAvgPlayerSeasonPasses(playerId){
+    var season = await utils.latestSeasonId()
+    var data = await FixtureStatsModel.aggregate()
+    .match({
+        'seasonId': season,
+    })
+    .unwind(
+        'lineUps'
+    )
+    .unwind(
+        'substitutes'
+    )
+    .match({
+        '$or': [
+            {'lineUps.id': playerId}, {'substitutes.id': playerId}
+        ]
+    })
+    
+    /* TODO: FINISH PIPELINE */
+    return data
+}
+
+
 async function getBestShotPlayers(){
     var season = await utils.latestSeasonId()
     var data = await PlayerFixtureStatsModel.aggregate()
@@ -224,10 +248,10 @@ async function getBestDef(){
 }
 
 async function getBestMid(){
-    
+    /* TODO: CREATE PIPELINE */
 }
 
 async function getBestAtt(){
-    
+    /* TODO: CREATE PIPELINE */
 }
 
